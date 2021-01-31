@@ -17,3 +17,5 @@ galaxy_info:
 
 dependencies:
   - role: airtonix.provisioning/apps/git
+  - role: airtonix.provisioning/system/python
+  - role: airtonix.provisioning/system/python

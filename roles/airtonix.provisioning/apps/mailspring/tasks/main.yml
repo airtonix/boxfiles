@@ -1,0 +1,6 @@
+---
+- name: install/upgrade libsecrets
+  package:
+    state: latest
+    name: libsecret
+

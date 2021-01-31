@@ -1,0 +1,6 @@
+---
+- name: install microsoft teams
+  flatpak:
+    name: com.microsoft.Teams
+    state: present
+    method: system

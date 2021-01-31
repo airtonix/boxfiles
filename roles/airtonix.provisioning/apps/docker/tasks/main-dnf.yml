@@ -1,0 +1,6 @@
+---
+- name: Install docker-compose
+  package:
+    state: present
+    name:
+      - docker-compose

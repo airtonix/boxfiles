@@ -1,0 +1,19 @@
+# .profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+
+# User specific environment and startup programs
+
+eval $(ssh-agent)  # required for desktop ssh-agent to work as expected
+
+## Code development paths
+export GOPATH=$HOME/wkspc/go
+export PATH=$PATH:$HOME/.local/bin:$HOME/wkspc/bin:$GOPATH/bin:$HOME/.npm-global/bin
+
+## HiDPI support for GTK applications
+export GDK_DPI_SCALE=0.5
+export GDK_SCALE=2

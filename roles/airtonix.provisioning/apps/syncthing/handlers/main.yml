@@ -1,0 +1,7 @@
+---
+# handlers file for syncthing
+- name: restart syncthing
+  systemd:
+    name: syncthing.service
+    user: yes
+    state: restarted

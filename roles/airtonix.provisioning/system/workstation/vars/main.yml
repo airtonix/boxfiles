@@ -1,0 +1,9 @@
+---
+hostnames:
+  desktop: ff.jwf.io
+  laptop: fossbook.jwf.io
+fedora_version: 33
+
+xrandr_params:
+  primary_output: HDMI-2
+  secondary_output: VGA-1

@@ -1,0 +1,108 @@
+# .bashrc
+
+
+# --- source global definitions ------------------------------------------------
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+
+# --- user-specific configuration and functions --------------------------------
+
+## -- useful and frequently-used environment variables -----
+export DAY=$(date +%Y%m%d)
+export EDITOR=vim
+export TERM=xterm-256color
+export YESTERDAY=$(($DAY - 1))
+
+## -- bash history configuration improvements --------------
+unset HISTFILESIZE
+export HISTSIZE=1000
+export HISTTIMEFORMAT='%Y-%m-%d %H:%M.%S | '
+export HISTIGNORE="exit:gitd:gitst:history:ls:lsa:lsz"
+### append instead of overwriting history file
+shopt -s histappend
+
+## -- powerline-go configuration ---------------------------
+### https://github.com/justjanne/powerline-go
+function _update_ps1() {
+    PS1="$($GOPATH/bin/powerline-go \
+        -colorize-hostname \
+        -cwd-max-depth 4 \
+        -error $?)"
+}
+if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+
+# --- aliases ------------------------------------------------------------------
+
+## -- aliases: general -------------------------------------
+alias clipboard='xclip -selection copy'
+alias diff='diff --side-by-side --width=$(tput cols) --recursive --color=always'
+alias ls='ls --human-readable --group-directories-first --color=auto --classify --time-style=+"%Y-%m-%d %H:%M"'
+alias lsa='ls -Alh'
+alias lsz='ls -AZlh'
+alias watch='watch --beep --color --differences --interval 5 --precise'
+alias watch_p='watch --beep --color --differences=permanent --interval 5 --precise'
+alias pwds='du --dereference-args --human-readable --summarize ./* | sort --human-numeric-sort --reverse'
+alias wlp2s0='ip address show dev wlp2s0'
+alias wlp4s0='ip address show dev wlp4s0'
+
+# If the `bat` tool is present and installed, create an alias to override `cat`
+# with an executable file presumably in the user's path, `/usr/bin/bat`.
+#     https://github.com/sharkdp/bat
+if [ -x "/usr/bin/bat" ]; then
+    alias cat='bat'
+fi
+
+# If the `fd` tool is present and installed, create an alias to override `find`
+# with an executable file presumably in the user's path, `/usr/bin/fd`.
+#     https://github.com/sharkdp/fd
+if [ -x "/usr/bin/fd" ]; then
+    alias find='fd'
+fi
+
+# grap: a simple wrapper function for `grep`
+# $<N> represents parameters passed.
+#   $1: Path
+#   $2: Expression
+#   $3: Optional parameters
+function grap { grep -rnw $1 -e "$2" $3; }
+
+## -- aliases: git Pagure pull request reviews -------------
+
+# Pagure pull request, non-master branch
+function pag_pull_nm {
+    git checkout master
+    git branch -D $3
+    git fetch $1 pull/$2/head:$3
+    git checkout $3
+}
+
+# Pagure pull request, master branch
+function pag_pull_m {
+    git checkout master
+    git branch -D pr-$2
+    git checkout -b pr-$2
+    git fetch $1 pull/$2/head:master -f
+    git checkout master
+    git branch -D pr-$2
+    git checkout -b pr-$2
+    git checkout master
+    git reset --hard $1/master
+    git checkout pr-$2
+}
+
+## -- aliases: git [short versions] ------------------------
+alias gitd='git dammit'
+
+alias gitpr='git pull-rebase'
+alias gitpu='git pull-upstream'
+alias gitpur='git pull-upstream-rebase'
+
+alias gitpf='git push-lease'
+alias gitss='git shoeshine'
+alias gitst='git short-status'
+alias gitsy='git sync-fork-master'

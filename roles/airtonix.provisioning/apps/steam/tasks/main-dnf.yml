@@ -1,0 +1,11 @@
+---
+- name: install Extra Workstation Repos
+  package:
+    state: present
+    name:
+      - fedora-workstation-repositories
+- name: Install Steam
+  dnf:
+    name: steam
+    state: present
+    enablerepo: rpmfusion-nonfree-steam

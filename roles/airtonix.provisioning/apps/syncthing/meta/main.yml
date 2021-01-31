@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  role_name: syncthing
+  author: Justin W. Flory
+  description: Install and provision Syncthing install on Fedora Workstation
+
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 33
+
+  galaxy_tags:
+    - filesystem
+    - syncthing
+    - fedora
+
+dependencies: []

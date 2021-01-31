@@ -1,0 +1,33 @@
+---
+# tasks file for display
+- name: push Xresources config to target user home directory
+  template:
+    src: Xresources
+    dest: "{{ user_home_dir }}/.Xresources"
+    mode: 0644
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+    setype: user_home_t
+    seuser: system_u
+
+- name: push xrandr-split script to local executable path
+  template:
+    src: hidpi-laptop-1080p-monitor.sh.jinja2
+    dest: /usr/local/bin/xrandr-split
+    mode: 0755
+    setype: bin_t
+    seuser: system_u
+
+- name: push xrandr-laptop script to local executable path
+  template:
+    src: hidpi-laptop.sh.jinja2
+    dest: /usr/local/bin/xrandr-laptop
+    mode: 0755
+    setype: bin_t
+    seuser: system_u
+
+- name: (hotfix) spotify - enable 2.5 scaling ratio on start-up
+  lineinfile:
+    path: /usr/share/applications/spotify.desktop
+    regexp: "^Exec="
+    line: "Exec=spotify --force-device-scale-factor=2.5 %U"

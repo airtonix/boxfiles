@@ -1,0 +1,12 @@
+Host github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+
+Host bitbucket.org
+    User git
+    IdentityFile ~/.ssh/id_ed25519-reckon-bitbucket-pennyroyal
+
+Host reckon.local
+    HostName zeno-reckon-macbookpro.local
+    User zeno.jiricek
+    IdentityFile ~/.ssh/id_ed25519-reckon-macosx

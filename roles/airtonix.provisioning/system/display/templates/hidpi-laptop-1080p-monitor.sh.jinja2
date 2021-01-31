@@ -1,0 +1,38 @@
+#!/bin/sh
+# vim:set filetype=sh:
+#
+# BSD 3-Clause License, Justin W. Flory <https://jwf.io>
+#
+# xrandr wrapper script for a mixed monitor home desktop setup.
+#
+# This script is an annotated wrapper for xrandr. The script is not complicated, but it is explained for the purpose of
+# reuse and extension in future arrangements. The motivation to make this was behind my frustration with using a mixed
+# desk set-up with one HiDPI display (on a 14" laptop screen) along with a 1080p 24" monitor display.
+#
+# There are two displays:
+#
+# * {{ monitors.hidpi.id}}: 4K ({{ monitors.hidpi.ratio }}) display (a.k.a. HiDPI)
+# * {{ monitors.standard.id }}: 1080p ({{ monitors.standard.ratio }}) HP monitor
+#
+# There is also a Lenovo USB dock that offers additional outputs; these are turned off. The final arrangement is the
+# HP monitor window to the left of the 4K laptop display.
+
+xrandr \
+  --output {{ monitors.hidpi.id }} \
+    --mode {{ monitors.hidpi.ratio }} \
+    --pos {{ monitors.hidpi.pos }} \
+    --scale 1x1 \
+    --rotate normal \
+  \
+  --output {{ monitors.standard.id }} \
+    --primary \
+    --mode {{ monitors.standard.ratio }} \
+    --pos {{ monitors.standard.pos }} \
+    --scale 2x2 \
+    --rotate normal \
+  \
+  --output HDMI-1 \
+    --off \
+  \
+  --output DP-2 \
+    --off

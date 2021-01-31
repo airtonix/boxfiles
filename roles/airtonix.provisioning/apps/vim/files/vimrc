@@ -1,0 +1,112 @@
+" ===== plugin management: pathogen =====
+" Note: Eventually, this can be deprecated when versions of Vim with proper
+"       package management are more widely available on enterprise Linux distros
+execute pathogen#infect()
+
+
+
+" ===== theming =====
+colorscheme slate
+set background=dark " Use a dark background
+
+
+
+" ===== editor preferences =====
+syntax on
+filetype plugin indent on
+set backspace=2         " fix backspace key behavior on older systems
+set cursorline          " add line beneath cursor
+set noshowmode          " hide default mode (e.g. -- INSERT -- below statusline)
+set number              " show line numbers
+set foldmethod=indent   " automatically fold by indent level
+set nofoldenable        " …but have folds open by default
+
+" automatically trim hanging whitespace on file save
+autocmd BufWritePre * %s/\s\+$//e
+
+
+
+" ===== encoding / color support =====
+set encoding=utf-8  " Force encoding to UTF-8 compliance
+set laststatus=2    " Always display the statusline in all windows
+set t_Co=256        " Set terminal color support to 256 colors (for Powerline)
+
+
+
+" ===== indentation preferences =====
+set autoindent		" Copy indent from current line when starting a new line
+set smartindent		" Do smart autoindenting when starting a new line
+set smarttab        " On pressing <TAB>, indent to indention of previous line
+set noexpandtab     " On pressing <TAB>, insert hard tab
+set tabstop=4       " Display existing indents with two ispaces width
+set showtabline=2   " Always display the tabline, even if there is only one tab
+set shiftwidth=4    " When indenting with '>', use two spaces width
+
+
+
+" ===== text formatting preferences =====
+set textwidth=120
+set colorcolumn=121
+set wrapscan
+
+
+
+" ===== custom file preferences =====
+
+" AsciiDoc
+autocmd FileType asciidoc setlocal spell textwidth=0 colorcolumn=0
+
+" CSS
+autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 textwidth=0 colorcolumn=0
+
+" git commits
+autocmd FileType gitcommit setlocal spell colorcolumn=73 softtabstop=4 tabstop=4
+
+" HTML
+autocmd FileType html setlocal textwidth=0 colorcolumn=0
+autocmd FileType htmljinja setlocal textwidth=0 colorcolumn=0
+
+" Java
+" No custom config for Java, for now. textwidth and colorcolumn updated globally above.
+"autocmd FileType java setlocal textwidth=120 colorcolumn=121
+
+" Markdown
+autocmd FileType markdown setlocal spell textwidth=0 colorcolumn=0
+
+" Python
+autocmd FileType py setlocal textwidth=88 colorcolumn=89
+
+" reStructuredText
+autocmd FileType rst setlocal textwidth=0 colorcolumn=0
+
+" Shell scripting
+autocmd FileType sh setlocal expandtab shiftwidth=2 softtabstop=2 textwidth=0 colorcolumn=0
+autocmd FileType bash setlocal expandtab shiftwidth=2 softtabstop=2 textwidth=0 colorcolumn=0
+
+" SLS: SaLt State files
+autocmd FileType sls setlocal shiftwidth=2 softtabstop=2 tabstop=2 textwidth=0 colorcolumn=0
+
+" YAML
+autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2
+
+
+
+" ===== plugin configuration =====
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.shtml' " vim-closetags
+let g:airline#extensions#tabline#enabled = 1                " vim-airline
+let g:airline_powerline_fonts = 1                           " vim-airline
+let g:user_defined_snippets = ["$HOME/.vim/bundle/vim-snippets/snippets/*"]
+
+" vim-syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height = 4
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = "--max-line-length=88 --ignore=W503"
+let g:syntastic_rst_checkers = ['']

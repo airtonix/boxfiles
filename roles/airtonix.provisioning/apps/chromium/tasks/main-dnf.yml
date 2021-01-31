@@ -1,0 +1,6 @@
+---
+- name: install Chromium
+  package:
+    state: present
+    name:
+      - chromium

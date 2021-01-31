@@ -1,0 +1,13 @@
+---
+# vars file for display
+monitors:
+  hidpi:
+    id: eDP-1
+    ratio: 3840x2160
+    pos: "3840x0"
+  standard:
+    id: DP-1
+    ratio: 1920x1080
+    pos: "0x0"
+xorg:
+  dpi: 288

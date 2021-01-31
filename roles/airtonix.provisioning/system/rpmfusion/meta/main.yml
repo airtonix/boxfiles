@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  role_name: system/rpmfusion
+  author: Justin W. Flory
+  description: Install third-party RPM Fusion repos on Fedora Workstation
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - linux
+    - fedora
+    - desktop
+    - rpmfusion
+
+  dependencies: []

@@ -1,0 +1,24 @@
+[user]
+	name = Zenobius Jiricek
+	email = airtonix@users.noreply.github.com
+
+[core]
+	editor = code --wait
+
+[init]
+	templatedir = ~/.git_template
+
+[rerere]
+	enabled = true
+
+[foo]
+	bar = base value
+
+[includeIf "gitdir:/home/zenobius/Projects/Work/Reckon/"]
+    path = ~/Projects/Work/Reckon/.gitconfig
+
+[includeIf "gitdir:Projects/Mine/Gitlab/"]
+    path = ~/Projects/Mine/Gitlab/.gitconfig
+
+[includeIf "gitdir:repo/"]
+	path = ~/repo/included

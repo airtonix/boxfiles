@@ -1,0 +1,27 @@
+---
+- name: install openssh
+  package:
+    state: present
+    name:
+      - openssh
+      - openssh-clients
+
+- name: create user SSH config directory (~/.ssh/)
+  file:
+    state: directory
+    path: "{{ user_home_dir }}/.ssh"
+    mode: 0700
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+    setype: ssh_home_t
+    seuser: system_u
+
+- name: push user SSH config (~/.ssh/config)
+  copy:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ user_home_dir }}/.ssh/config"
+    mode: 0644
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+    setype: ssh_home_t
+    seuser: system_u

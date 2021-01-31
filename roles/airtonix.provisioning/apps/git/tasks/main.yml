@@ -1,0 +1,16 @@
+---
+- name: install/upgrade git
+  package:
+    state: latest
+    name: git
+
+- name: push git user config files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ user_home_dir }}/.{{ item }}"
+    mode: 0400
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+    seuser: system_u
+  loop:
+    - gitconfig

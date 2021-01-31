@@ -1,0 +1,30 @@
+---
+- name: Fedora Workstation configuration
+  hosts: workstation
+  become: yes
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    target_group: zenobius
+    target_user: zenobius
+    target_user_name: "Zenobius Jiricek"
+    user_home_dir: /home/zenobius
+
+  roles:
+    - { role: airtonix.provisioning/system/base, tags: ['base', 'system'] }
+    - { role: airtonix.provisioning/system/workstation, tags: ['base', 'system'] }
+    - { role: airtonix.provisioning/system/python, tags: ['python', 'language', 'system'] }
+    - { role: airtonix.provisioning/system/ruby, tags: ['ruby', 'language', 'system'] }
+    - { role: airtonix.provisioning/system/nodejs, tags: ['nodejs', 'language', 'system'] }
+    - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
+    - { role: airtonix.provisioning/apps/docker, tags: ['docker', 'virtual', 'apps'] }
+    - { role: airtonix.provisioning/apps/git, tags: ['dev', 'vcs', 'terminal', 'apps'] }
+    - { role: airtonix.provisioning/apps/zsh, tags: ['dev', 'zsh', 'terminal', 'apps'] }
+    - { role: airtonix.provisioning/apps/pass, tags: ['security', 'pass', 'terminal', 'apps'] }
+    - { role: airtonix.provisioning/apps/ssh, tags: ['dev', 'ssh', 'terminal', 'apps'] }
+    - { role: airtonix.provisioning/apps/sublime-text, tags: ['sublime', 'dev', 'ide', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/ms-vscode, tags: ['vscode', 'dev', 'ide', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/firefox, tags: ['browser', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/ms-teams, tags: ['chat', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/slack, tags: ['chat', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/steam, tags: ['steam', 'games', 'desktop', 'apps'] }

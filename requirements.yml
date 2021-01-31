@@ -1,0 +1,5 @@
+---
+roles:
+  - name: gantsign.visual-studio-code
+    version: 6.6.0
+  - name: alzadude.firefox

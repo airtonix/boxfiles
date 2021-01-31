@@ -1,0 +1,5 @@
+---
+- name: Install requirements
+  shell: >
+    command ansible-galaxy install \
+        -r {{ role_path }}/requirements.yml

@@ -193,6 +193,10 @@ function main () {
 
   ansible-playbook \
     --verbose \
+    playbooks/galaxy.yml
+
+  ansible-playbook \
+    --verbose \
     --ask-become-pass \
     playbooks/workstation-${OSINFO_PLATFORM}.yml \
     "$@"

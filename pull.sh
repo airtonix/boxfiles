@@ -198,13 +198,21 @@ function setup_linux_x64_fedora () {
 function main () {
 
   setupansible
+  ansible-pull \
+    --url "${PLAYBOOK_REPO}" \
+    --checkout ${PLAYBOOK_BRANCH} \
+    --purge \
+    --inventory localhost, \
+    --ask-become-pass \
+    "playbooks/galaxy.yml"
 
   ansible-pull \
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
+    --purge \
     --inventory localhost, \
     --ask-become-pass \
-    "workstation-${OSINFO_PLATFORM}.yml"
+    "playbooks/workstation-${OSINFO_PLATFORM}.yml"
 }
 
 # Run the script

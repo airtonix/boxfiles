@@ -4,6 +4,9 @@ set -o errexit # Exit on most errors
 set -o nounset # Disallow expansion of unset variables
 set -o pipefail # Use last non-zero exit code in a pipeline
 
+# Define constants
+readonly PLAYBOOK_REPO="https://github.com/airtonix/boxfiles.git"
+
 function tolowercase() {
     tr '[:upper:]' '[:lower:]' <<<"$1"
 }
@@ -188,14 +191,14 @@ function setup_linux_x64_fedora () {
 }
 
 function main () {
-  echo "args: $@"
+
   setupansible
 
-  ansible-playbook \
-    --verbose \
+  ansible-pull \
+    --url "${PLAYBOOK_REPO}" \
+    --inventory localhost, \
     --ask-become-pass \
-    playbooks/workstation-${OSINFO_PLATFORM}.yml \
-    "$@"
+    "workstation-${OSINFO_PLATFORM}.yml"
 }
 
 # Run the script

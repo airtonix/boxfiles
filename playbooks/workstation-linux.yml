@@ -1,6 +1,7 @@
 ---
 - name: Fedora Workstation configuration
   hosts: workstation
+  become: true
 
   vars:
     ansible_python_interpreter: /usr/bin/python3
@@ -17,9 +18,10 @@
     - { role: airtonix.provisioning/system/nodejs, tags: ['nodejs', 'language', 'system'] }
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
     - { role: airtonix.provisioning/apps/docker, tags: ['docker', 'virtual', 'apps'] }
-    - { role: airtonix.provisioning/apps/tusk, tags: ['terminal', 'dev', 'apps'] }
-    - { role: airtonix.provisioning/apps/shellspec, tags: ['terminal', 'dev', 'apps'] }
-    - { role: airtonix.provisioning/apps/git, tags: ['dev', 'vcs', 'terminal', 'apps'] }
+    - { role: airtonix.provisioning/apps/tusk, tags: ['tusk', 'terminal', 'dev', 'apps'] }
+    - { role: airtonix.provisioning/apps/go-task, tags: ['go-task', 'terminal', 'dev', 'apps'] }
+    - { role: airtonix.provisioning/apps/shellspec, tags: ['shellspec', 'terminal', 'dev', 'apps'] }
+    - { role: airtonix.provisioning/apps/git, tags: ['git', 'dev', 'vcs', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/zsh, tags: ['dev', 'zsh', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/pass, tags: ['security', 'pass', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/ssh, tags: ['dev', 'ssh', 'terminal', 'apps'] }

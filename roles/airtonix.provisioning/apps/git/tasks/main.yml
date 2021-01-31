@@ -1,7 +1,7 @@
 ---
 - name: install/upgrade git
   package:
-    state: latest
+    state: present
     name: git
 
 - name: push git user config files

@@ -1,8 +1,8 @@
 ---
 - name: Install ShellSpec
   shell: >
-      curl -fsSL https://git.io/shellspec | sh
+    curl -fsSL https://git.io/shellspec | sh
   args:
     executable: /bin/bash
-    chdir: "{{ usr_home_dir }}"
-    creates: "{{ euser_home_dir }}/.local/lib/shellspec"
+    chdir: "{{ user_home_dir }}"
+    creates: "{{ user_home_dir }}/.local/lib/shellspec"

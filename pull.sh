@@ -6,10 +6,15 @@ set -o pipefail # Use last non-zero exit code in a pipeline
 
 # Define constants
 readonly PLAYBOOK_REPO="https://github.com/airtonix/boxfiles.git"
+readonly PLAYBOOK_BRANCH="master"
 
+#
+# Helper Function
+#
 function tolowercase() {
     tr '[:upper:]' '[:lower:]' <<<"$1"
 }
+
 
 function function_exists () {
     declare -f -F $1 > /dev/null
@@ -196,6 +201,7 @@ function main () {
 
   ansible-pull \
     --url "${PLAYBOOK_REPO}" \
+    --checkout ${PLAYBOOK_BRANCH} \
     --inventory localhost, \
     --ask-become-pass \
     "workstation-${OSINFO_PLATFORM}.yml"

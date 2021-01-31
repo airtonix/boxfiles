@@ -202,6 +202,7 @@ function main () {
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
     # --purge \
+    --verbose \
     --inventory localhost, \
     "playbooks/galaxy.yml"
 
@@ -209,6 +210,7 @@ function main () {
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
     # --purge \
+    --verbose \
     --inventory localhost, \
     --ask-become-pass \
     "playbooks/workstation-${OSINFO_PLATFORM}.yml"

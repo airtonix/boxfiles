@@ -201,15 +201,14 @@ function main () {
   ansible-pull \
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
-    --purge \
+    # --purge \
     --inventory localhost, \
-    --ask-become-pass \
     "playbooks/galaxy.yml"
 
   ansible-pull \
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
-    --purge \
+    # --purge \
     --inventory localhost, \
     --ask-become-pass \
     "playbooks/workstation-${OSINFO_PLATFORM}.yml"

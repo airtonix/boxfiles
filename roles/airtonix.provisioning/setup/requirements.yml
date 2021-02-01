@@ -2,4 +2,7 @@
 roles:
   - name: gantsign.visual-studio-code
     version: 6.6.0
+  - name: alzadude.firefox-addon
+    version: ed20808
   - name: alzadude.firefox
+    version: c29e98d

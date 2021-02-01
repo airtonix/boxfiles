@@ -17,6 +17,7 @@
     - { role: airtonix.provisioning/system/ruby, tags: ['ruby', 'language', 'system'] }
     - { role: airtonix.provisioning/system/nodejs, tags: ['nodejs', 'language', 'system'] }
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
+    - { role: airtonix.provisioning/apps/syncthing, tags: ['syncthing', 'sharing', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/docker, tags: ['docker', 'virtual', 'apps'] }
     - { role: airtonix.provisioning/apps/tusk, tags: ['tusk', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/go-task, tags: ['go-task', 'terminal', 'dev', 'apps'] }

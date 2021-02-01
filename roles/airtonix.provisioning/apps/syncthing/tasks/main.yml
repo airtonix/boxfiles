@@ -3,12 +3,52 @@
 - name: install syncthing (distribution:Fedora)
   package:
     state: present
-    name: syncthing
+    name: "{{ item }}"
   when: ansible_facts['distribution'] == "Fedora"
+  loop:
+    - syncthing
+    - syncthing-cli
+    - syncthing-tools
+
+- name: Add flathub repo
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+- name: install syncthing ui
+  flatpak:
+    name: "me.kozec.syncthingtk"
+    state: present
+    method: user
+
+- name: Ensure user systemd exists
+  file:
+    path: "{{ user_home_dir }}/.config/systemd/user"
+    state: directory
+    mode: '0755'
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+
+- name: install syncthing user service
+  copy:
+    src: "syncthing.service"
+    dest: "{{ user_home_dir }}/.config/systemd/user/syncthing.service"
+
+- name: get my user id
+  become: true
+  become_user: "{{ target_user }}"
+  command: id -u
+  register: myuid
 
 - name: start/enable syncthing.service by user service manager
-  service:
+  become: true
+  become_user: "{{ target_user }}"
+  systemd:
     name: syncthing.service
-    user: yes
+    scope: user
     state: started
     enabled: yes
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ myuid.stdout }}"

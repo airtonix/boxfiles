@@ -3,6 +3,8 @@
   file:
     state: directory
     path: "/etc/bash_completion.d"
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
     mode: 0755
     setype: etc_t
     seuser: system_u

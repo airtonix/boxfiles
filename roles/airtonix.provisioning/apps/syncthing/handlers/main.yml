@@ -3,5 +3,5 @@
 - name: restart syncthing
   systemd:
     name: syncthing.service
-    user: yes
+    scope: user
     state: restarted

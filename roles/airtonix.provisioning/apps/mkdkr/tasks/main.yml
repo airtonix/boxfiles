@@ -5,6 +5,8 @@
     path: "{{ user_home_dir }}/Applications"
     state: directory
     mode: '0755'
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
 
 - name: Install MkDkr
   shell: >
@@ -19,3 +21,5 @@
     state: link
     path: "{{ user_home_dir }}/.mkdkr"
     src: "{{ user_home_dir }}/Applications/mkdkr"
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"

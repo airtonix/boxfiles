@@ -1,0 +1,15 @@
+# https://github.com/airtonix/fixedsys/blob/master/FSEX.ttx
+---
+- name: Ensure Fonts Directory exists
+  file:
+    path: "{{ user_home_dir }}/.fonts"
+    state: directory
+    mode: '0755'
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+
+- name: Download FixedSys Excelsior
+  get_url:
+    url: http://raw.github.com/airtonix/fixedsys/master/FSEX.ttx
+    dest: {{ user_home_dir }}/.fonts/
+    mode: '0755'

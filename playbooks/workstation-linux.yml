@@ -12,13 +12,14 @@
 
   roles:
     - { role: airtonix.provisioning/system/base, tags: ['base', 'system'] }
-    - { role: airtonix.provisioning/system/workstation, tags: ['base', 'system'] }
     - { role: airtonix.provisioning/system/python, tags: ['python', 'language', 'system'] }
     - { role: airtonix.provisioning/system/ruby, tags: ['ruby', 'language', 'system'] }
     - { role: airtonix.provisioning/system/nodejs, tags: ['nodejs', 'language', 'system'] }
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
+    - { role: airtonix.provisioning/system/flatpak, tags: ['flatpak', 'packages'] }
     - { role: airtonix.provisioning/apps/syncthing, tags: ['syncthing', 'sharing', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/docker, tags: ['docker', 'virtual', 'apps'] }
+    - { role: airtonix.provisioning/apps/adb, tags: ['android', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/tusk, tags: ['tusk', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/go-task, tags: ['go-task', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/shellspec, tags: ['shellspec', 'terminal', 'dev', 'apps'] }
@@ -32,3 +33,15 @@
     - { role: airtonix.provisioning/apps/ms-teams, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/slack, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/steam, tags: ['steam', 'games', 'desktop', 'apps'] }
+
+  tasks:
+    - name: install base packages
+      package:
+        state: present
+        name:
+          - yamllint
+          - google-roboto-slab-fonts
+          - htop
+          - jq
+          - powerline-fonts
+          - youtube-dl

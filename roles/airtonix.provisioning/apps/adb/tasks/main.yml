@@ -1,0 +1,12 @@
+---
+- name: Install Android Tools
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - android-tools
+    - abootimg
+    - andriller
+    - androguard
+    - androwarn
+    - adb-enhanced

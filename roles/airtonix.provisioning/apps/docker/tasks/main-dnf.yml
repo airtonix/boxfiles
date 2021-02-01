@@ -1,4 +1,15 @@
 ---
+- name: add new groups - docker, libvirt
+  group: name={{ item }}
+  loop:
+    - docker
+
+- name: add target user to new groups
+  user:
+    name: "{{ target_user }}"
+    groups: docker
+    append: yes
+
 - name: Install docker-compose
   package:
     state: present

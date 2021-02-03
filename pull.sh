@@ -184,6 +184,7 @@ function setupansible () {
   for item in "${files[@]}"; do
     function_exists "setup_$item" \
       && {
+        echo "setting up ${item}"
         "setup_$item";
         break;
       }
@@ -191,13 +192,16 @@ function setupansible () {
 }
 
 function setup_linux_x64_fedora () {
-  echo "setting up fedora"
   sudo dnf install git ansible -y
+}
+
+function setup_darwin_x64 () {
 }
 
 function main () {
 
   setupansible
+
   ansible-pull \
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \

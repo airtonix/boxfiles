@@ -2,6 +2,7 @@
 - name: OSx Workstation configuration
   hosts: workstation
   become: true
+
   vars_prompt:
     - name: target_user
       prompt: What is your username?

@@ -184,7 +184,7 @@ function setupansible () {
   for item in "${files[@]}"; do
     function_exists "setup_$item" \
       && {
-        echo "setting up ${item}"
+        echo "setting up ${item}";
         "setup_$item";
         break;
       }

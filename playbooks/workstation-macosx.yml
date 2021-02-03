@@ -1,0 +1,21 @@
+---
+- name: OSx Workstation configuration
+  hosts: workstation
+  become: true
+  vars_prompt:
+    - name: target_user
+      prompt: What is your username?
+      private: no
+    - name: target_group
+      prompt: What is your usergroup?
+      private: no
+    - name: target_user_name
+      prompt: What is your full name?
+      private: no
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    user_home_dir: /home/{{ target_user }}
+
+  roles:
+    - { role: airtonix.provisioning/system/nodejs }

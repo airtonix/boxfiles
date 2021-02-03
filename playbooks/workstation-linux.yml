@@ -18,6 +18,7 @@
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
     - { role: airtonix.provisioning/system/flatpak, tags: ['flatpak', 'packages'] }
     - { role: airtonix.provisioning/apps/syncthing, tags: ['syncthing', 'sharing', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/kdeconnect, tags: ['kdeconnect', 'phone', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/docker, tags: ['docker', 'virtual', 'apps'] }
     - { role: airtonix.provisioning/apps/adb, tags: ['android', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/tusk, tags: ['tusk', 'terminal', 'dev', 'apps'] }

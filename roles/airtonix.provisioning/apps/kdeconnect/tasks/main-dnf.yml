@@ -1,0 +1,7 @@
+---
+- name: install kdeconnect
+  package:
+    state: present
+    name:
+      - kdeconnect
+      - kde-connect-nautilus

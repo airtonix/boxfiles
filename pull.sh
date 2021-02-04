@@ -182,6 +182,7 @@ function setupansible () {
   )
 
   for item in "${files[@]}"; do
+    echo "testing for ${item}";
     function_exists "setup_$item" \
       && {
         echo "setting up ${item}";
@@ -195,7 +196,19 @@ function setup_linux_x64_fedora () {
   sudo dnf install git ansible -y
 }
 
-function setup_darwin_x64 () {
+function setup_darwin_x86 () {
+    echo "installing homebrew"
+    echo "Checking Sudo Access"
+    sudo echo "Sudo Access Granted" || exit 1
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
+    echo "installing python3"
+    brew list python@3.9 &>/dev/null || brew install python@3.9;
+    brew link python@3.9 --overwrite;
+    echo "installing pip3"
+    curl -fsSL https://bootstrap.pypa.io/get-pip.py | $(which python3);
+    echo "installing ansible"
+    CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install --user ansible;
+    export PATH=$PATH:~/Library/Python/3.9/bin
 }
 
 function main () {
@@ -206,7 +219,6 @@ function main () {
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
     --verbose \
-    --purge \
     --inventory localhost, \
     "playbooks/galaxy.yml"
 

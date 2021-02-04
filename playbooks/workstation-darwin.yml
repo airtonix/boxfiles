@@ -20,3 +20,4 @@
 
   roles:
     - { role: airtonix.provisioning/system/nodejs }
+    - { role: airtonix.provisioning/system/ansible }

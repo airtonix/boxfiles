@@ -1,0 +1,9 @@
+---
+- name: ensure User installed Ansible is on Path
+  lineinfile:
+    path: "{{ user_home_dir }}/.zshrc"
+    state: present
+    insertbefore: EOF
+    create: true
+    backup: true
+    line: "export PATH=$PATH:~/Library/Python/3.9/bin"

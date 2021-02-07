@@ -171,7 +171,7 @@ function osinformation () {
 
 }
 
-function setupansible () {
+function install_ansible () {
   osinformation
 
   files=(
@@ -192,14 +192,27 @@ function setupansible () {
   done
 }
 
+function setup_ansible () {
+  ansible-pull \
+    --url "${PLAYBOOK_REPO}" \
+    --checkout ${PLAYBOOK_BRANCH} \
+    --verbose \
+    --inventory localhost, \
+    "playbooks/galaxy.yml"
+}
+
+function check_sudo_access () {
+    echo "Checking Sudo Access"
+    sudo echo "Sudo Access Granted" || exit 1
+}
+
 function setup_linux_x64_fedora () {
   sudo dnf install git ansible -y
 }
 
 function setup_darwin_x86 () {
     echo "installing homebrew"
-    echo "Checking Sudo Access"
-    sudo echo "Sudo Access Granted" || exit 1
+    check_sudo_access
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
     echo "installing python3"
     brew list python@3.9 &>/dev/null || brew install python@3.9;
@@ -211,17 +224,10 @@ function setup_darwin_x86 () {
     export PATH=$PATH:~/Library/Python/3.9/bin
 }
 
-function main () {
-
-  setupansible
-
-  ansible-pull \
-    --url "${PLAYBOOK_REPO}" \
-    --checkout ${PLAYBOOK_BRANCH} \
-    --verbose \
-    --inventory localhost, \
-    "playbooks/galaxy.yml"
-
+function run_playbook () {
+  playbook="$1"
+  shift 1
+  echo "== Playbook: ${playbook} =="
   ansible-pull \
     --url "${PLAYBOOK_REPO}" \
     --checkout ${PLAYBOOK_BRANCH} \
@@ -229,7 +235,28 @@ function main () {
     --purge \
     --inventory localhost, \
     --ask-become-pass \
-    "playbooks/workstation-${OSINFO_PLATFORM}.yml"
+    $playbook \
+    "$@"
+}
+
+
+function main () {
+    args=( "$@"  )
+    playbook="$1"
+    shift 1
+    case $playbook in
+        debug)
+            echo "== Debug =="
+            install_ansible
+            run_playbook playbooks/debug.yml $args
+        ;;
+        *)
+            echo "== Workstation: ${OSINFO_PLATFORM} =="
+            install_ansible
+            setup_ansible
+            run_playbook "playbooks/workstation-${OSINFO_PLATFORM}.yml" $args
+        ;;
+    esac
 }
 
 # Run the script

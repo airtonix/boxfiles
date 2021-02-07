@@ -1,6 +1,0 @@
----
-- name: assert supported distribution
-  assert:
-    that:
-      - "ansible_pkg_mgr in ('apt', 'yum', 'dnf', 'zypper')"
-- include_tasks: main-{{ ansible_pkg_mgr }}.yml

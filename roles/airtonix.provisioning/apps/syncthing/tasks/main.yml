@@ -25,7 +25,7 @@
 
 - name: Ensure user systemd exists
   file:
-    path: "{{ user_home_dir }}/.config/systemd/user"
+    path: "{{ user_dir_home }}/.config/systemd/user"
     state: directory
     mode: '0755'
     owner: "{{ target_user }}"
@@ -34,7 +34,7 @@
 - name: install syncthing user service
   copy:
     src: "syncthing.service"
-    dest: "{{ user_home_dir }}/.config/systemd/user/syncthing.service"
+    dest: "{{ user_dir_home }}/.config/systemd/user/syncthing.service"
 
 - name: get my user id
   become: true

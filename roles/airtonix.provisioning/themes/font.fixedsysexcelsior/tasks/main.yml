@@ -2,7 +2,7 @@
 ---
 - name: Ensure Fonts Directory exists
   file:
-    path: "{{ user_home_dir }}/.fonts"
+    path: "{{ user_dir_home }}/.fonts"
     state: directory
     mode: '0755'
     owner: "{{ target_user }}"
@@ -11,5 +11,5 @@
 - name: Download FixedSys Excelsior
   get_url:
     url: http://raw.github.com/airtonix/fixedsys/master/FSEX.ttx
-    dest: {{ user_home_dir }}/.fonts/
+    dest: {{ user_dir_home }}/.fonts/
     mode: '0755'

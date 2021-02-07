@@ -1,7 +1,7 @@
 ---
 - name: ensure User installed Ansible is on Path
   lineinfile:
-    path: "{{ user_home_dir }}/.zshrc"
+    path: "{{ user_dir_home }}/.zshrc"
     state: present
     insertbefore: EOF
     create: true

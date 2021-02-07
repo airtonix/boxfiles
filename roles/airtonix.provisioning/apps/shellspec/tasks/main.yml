@@ -4,5 +4,5 @@
     curl -fsSL https://git.io/shellspec | sh
   args:
     executable: /bin/bash
-    chdir: "{{ user_home_dir }}"
-    creates: "{{ user_home_dir }}/.local/lib/shellspec"
+    chdir: "{{ user_dir_home }}"
+    creates: "{{ user_dir_home }}/.local/lib/shellspec"

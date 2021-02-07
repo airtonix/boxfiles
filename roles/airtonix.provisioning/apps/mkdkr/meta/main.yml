@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: mkdkr
+  min_ansible_version: 2.9
+
+  galaxy_tags:
+    - cicd
+
+  dependencies:
+    - { role: airtonix.provisioning/workstation/base }

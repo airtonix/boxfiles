@@ -16,7 +16,7 @@
 
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    user_home_dir: /home/{{ target_user }}
+    user_dir_home: /home/{{ target_user }}
 
   roles:
     - { role: airtonix.provisioning/system/nodejs }

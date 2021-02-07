@@ -20,7 +20,7 @@
 - name: add gemrc
   template:
     src: gemrc
-    dest: "{{ user_home_dir }}/.gemrc"
+    dest: "{{ user_dir_home }}/.gemrc"
     mode: 0644
     setype: user_home_t
     seuser: system_u

@@ -4,5 +4,5 @@
     curl -sL https://git.io/tusk | sh -s -- -b ~/bin latest
   args:
     executable: /bin/bash
-    chdir: "{{ user_home_dir }}"
-    creates: "{{ user_home_dir }}/bin/tusk"
+    chdir: "{{ user_dir_home }}"
+    creates: "{{ user_dir_home }}/bin/tusk"

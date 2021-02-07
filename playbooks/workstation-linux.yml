@@ -3,26 +3,20 @@
   hosts: workstation
   become: true
 
-  vars_prompt:
-    - name: target_user
-      prompt: What is your username?
-      private: no
-    - name: target_group
-      prompt: What is your usergroup?
-      private: no
-    - name: target_user_name
-      prompt: What is your full name?
-      private: no
-
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    user_home_dir: /home/{{ target_user }}
+    target_user: zenobius
+    target_group: zenobius
+    target_user_name: Zenobius Jiricek
+    user_dir_home: "/home/{{ target_user }}"
+    user_dir_applications: "{{ user_dir_home }}/Applications"
+    user_dir_bin: "{{ user_dir_home }}/bin"
 
   roles:
     - { role: airtonix.provisioning/system/base, tags: ['base', 'system'] }
     - { role: airtonix.provisioning/system/python, tags: ['python', 'language', 'system'] }
     - { role: airtonix.provisioning/system/ruby, tags: ['ruby', 'language', 'system'] }
-    - { role: airtonix.provisioning/system/nodejs, tags: ['nodejs', 'language', 'system'] }
+    - { role: airtonix.provisioning/system/nodejs-volta, tags: ['nodejs', 'language', 'system'] }
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
     - { role: airtonix.provisioning/system/flatpak, tags: ['flatpak', 'packages'] }
     - { role: airtonix.provisioning/apps/syncthing, tags: ['syncthing', 'sharing', 'desktop', 'apps'] }
@@ -33,6 +27,7 @@
     - { role: airtonix.provisioning/apps/go-task, tags: ['go-task', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/shellspec, tags: ['shellspec', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/git, tags: ['git', 'dev', 'vcs', 'terminal', 'apps'] }
+    - { role: airtonix.provisioning/apps/mkdkr, tags: ['mkdkr', 'dev', 'ci', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/zsh, tags: ['dev', 'zsh', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/pass, tags: ['security', 'pass', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/ssh, tags: ['dev', 'ssh', 'terminal', 'apps'] }

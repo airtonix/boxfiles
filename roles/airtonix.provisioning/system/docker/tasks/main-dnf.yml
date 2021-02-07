@@ -1,8 +1,38 @@
 ---
-- name: install moby-engine (/usr/bin/docker)
+- name: install dnf-plugins-core
   package:
-    name: moby-engine
     state: present
+    name: dnf-plugins-core
+
+- name: remove fedora docker (/usr/bin/docker)
+  package:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - moby-engine
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+
+- name: add docker.io repo
+  dnf:
+    enablerepo: "https://download.docker.com/linux/fedora/docker-ce.repo"
+
+- name: install docker.io
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
 
 - name: start/enable docker.service
   service:

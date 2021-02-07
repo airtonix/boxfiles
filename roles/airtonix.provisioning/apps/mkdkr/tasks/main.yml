@@ -1,25 +1,13 @@
-# rosineygp/mkdkr
 ---
-- name: Ensure Applications Dir Exists
-  file:
-    path: "{{ user_home_dir }}/Applications"
-    state: directory
-    mode: '0755'
-    owner: "{{ target_user }}"
-    group: "{{ target_group }}"
-
 - name: Install MkDkr
-  shell: >
-    curl https://raw.githubusercontent.com/rosineygp/mkdkr/master/.mkdkr > ~/Applications/mkdkr
-  args:
-    executable: /bin/bash
-    chdir: "{{ user_home_dir }}"
-    creates: "{{ user_home_dir }}/Applications/mkdkr"
+  get_url:
+    url: https://raw.githubusercontent.com/rosineygp/mkdkr/master/.mkdkr
+    dest: "{{ user_dir_applications }}/mkdkr"
 
 - name: Link MkDkr
   file:
-    state: link
-    path: "{{ user_home_dir }}/.mkdkr"
-    src: "{{ user_home_dir }}/Applications/mkdkr"
+    src: "{{ user_dir_applications }}/mkdkr"
+    path: "{{ user_dir_home }}/.mkdkr"
     owner: "{{ target_user }}"
     group: "{{ target_group }}"
+    state: link

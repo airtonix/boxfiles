@@ -4,29 +4,29 @@
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
   args:
     executable: /bin/bash
-    chdir: "{{ user_home_dir }}"
-    creates: "{{ user_home_dir }}/.nvm/nvm.sh"
+    chdir: "{{ user_dir_home }}"
+    creates: "{{ user_dir_home }}/.nvm/nvm.sh"
 
 - name: "node"
   shell: >
-    . {{ user_home_dir }}/.nvm/nvm.sh && nvm install {{ item }}
+    . {{ user_dir_home }}/.nvm/nvm.sh && nvm install {{ item }}
   args:
     executable: /bin/bash
-    chdir: "{{ user_home_dir }}"
-    creates: "{{ user_home_dir }}/.nvm/versions/{{ item }}"
+    chdir: "{{ user_dir_home }}"
+    creates: "{{ user_dir_home }}/.nvm/versions/{{ item }}"
   loop:
     - node
 
 - name: create npm user package cache directory
   file:
     state: directory
-    path: "{{ user_home_dir }}/.npm-global"
+    path: "{{ user_dir_home }}/.npm-global"
     group: "{{ target_user }}"
     owner: "{{ target_user }}"
 
 - name: copy npmrc
   copy:
     src: "{{ role_path }}/files/npmrc"
-    dest: "{{ user_home_dir }}/.npmrc"
+    dest: "{{ user_dir_home }}/.npmrc"
     group: "{{ target_user }}"
     owner: "{{ target_user }}"

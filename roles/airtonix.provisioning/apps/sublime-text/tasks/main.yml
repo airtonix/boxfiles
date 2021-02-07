@@ -22,7 +22,7 @@
 - name: create user configuration directory
   file:
     state: directory
-    path: "{{ user_home_dir }}/.config/sublime-text-3/Packages/User"
+    path: "{{ user_dir_home }}/.config/sublime-text-3/Packages/User"
     owner: "{{ target_user }}"
     group: "{{ target_group }}"
     setype: config_home_t
@@ -32,7 +32,7 @@
 - name: push sublime-settings files to user configuration directory
   copy:
     src: "{{ item }}"
-    dest: "{{ user_home_dir }}/.config/sublime-text-3/Packages/User/{{ item }}"
+    dest: "{{ user_dir_home }}/.config/sublime-text-3/Packages/User/{{ item }}"
     owner: "{{ target_user }}"
     group: "{{ target_group }}"
     setype: config_home_t

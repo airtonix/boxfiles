@@ -1,0 +1,8 @@
+---
+- name: Ensure Applications Dir Exists
+  file:
+    path: "{{ workstation_dir_applications }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"

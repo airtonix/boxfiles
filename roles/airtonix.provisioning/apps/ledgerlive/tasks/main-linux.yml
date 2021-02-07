@@ -1,0 +1,5 @@
+---
+- name: Download Ledger Live AppImage
+  get_url:
+    url: https://download-live.ledger.com/releases/latest/download/linux
+    dest: "{{ user_dir_applications }}"

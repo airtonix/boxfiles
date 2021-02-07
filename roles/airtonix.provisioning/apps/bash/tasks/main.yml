@@ -12,7 +12,7 @@
 - name: push bashrc and profile
   copy:
     src: "{{ item }}"
-    dest: "{{ user_home_dir }}/.{{ item }}"
+    dest: "{{ user_dir_home }}/.{{ item }}"
     mode: 0400
     owner: "{{ target_user }}"
     group: "{{ target_group }}"

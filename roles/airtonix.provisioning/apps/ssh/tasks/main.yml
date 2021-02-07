@@ -9,7 +9,7 @@
 - name: create user SSH config directory (~/.ssh/)
   file:
     state: directory
-    path: "{{ user_home_dir }}/.ssh"
+    path: "{{ user_dir_home }}/.ssh"
     mode: 0700
     owner: "{{ target_user }}"
     group: "{{ target_group }}"
@@ -19,7 +19,7 @@
 - name: push user SSH config (~/.ssh/config)
   copy:
     src: "{{ role_path }}/files/config"
-    dest: "{{ user_home_dir }}/.ssh/config"
+    dest: "{{ user_dir_home }}/.ssh/config"
     mode: 0644
     owner: "{{ target_user }}"
     group: "{{ target_group }}"

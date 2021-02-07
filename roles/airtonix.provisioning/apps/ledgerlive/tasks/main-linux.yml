@@ -3,3 +3,4 @@
   get_url:
     url: https://download-live.ledger.com/releases/latest/download/linux
     dest: "{{ user_dir_applications }}"
+    mode: "u+rwx"

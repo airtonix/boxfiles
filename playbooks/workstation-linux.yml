@@ -18,6 +18,7 @@
     - { role: airtonix.provisioning/system/ruby, tags: ['ruby', 'language', 'system'] }
     - { role: airtonix.provisioning/system/nodejs-volta, tags: ['nodejs', 'language', 'system'] }
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
+    - { role: airtonix.provisioning/system/androiddev, tags: ['android', 'dev', 'system'] }
     - { role: airtonix.provisioning/system/flatpak, tags: ['flatpak', 'packages'] }
     - { role: airtonix.provisioning/apps/syncthing, tags: ['syncthing', 'sharing', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/kdeconnect, tags: ['kdeconnect', 'phone', 'desktop', 'apps'] }
@@ -37,6 +38,8 @@
     - { role: airtonix.provisioning/apps/ms-teams, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/slack, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/steam, tags: ['steam', 'games', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/ledgerlive, tags: ['finance', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/mailspring, tags: ['email', 'desktop', 'apps'] }
 
   tasks:
     - name: install base packages

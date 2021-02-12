@@ -6,3 +6,4 @@ roles:
     version: ed20808
   - name: alzadude.firefox
     version: c29e98d
+  - name: nickpack.android_sdk

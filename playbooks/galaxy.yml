@@ -3,4 +3,4 @@
   hosts: all
 
   roles:
-    - role: airtonix.provisioning/setup
+    - role: airtonix.setup

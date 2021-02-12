@@ -27,3 +27,14 @@
     group: "{{ target_group }}"
     setype: user_home_t
     seuser: system_u
+
+- name: get passff-host
+  get_url:
+    url: https://github.com/passff/passff-host/releases/latest/download/install_host_app.sh
+    dest: "{{ user_dir_applications }}"
+    mode: "u+rwx"
+
+- name: Install passff-host
+  shell: >-
+    BROWSER=firefox
+    bash "{{ user_dir_applications }}/install_host_app.sh"

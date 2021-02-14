@@ -3,5 +3,5 @@
   package:
     state: present
     name:
-      - kdeconnect
-      - kde-connect-nautilus
+      - gnome-shell-extension-gsconnect
+      - nautilus-gsconnect

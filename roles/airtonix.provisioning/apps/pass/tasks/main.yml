@@ -33,8 +33,15 @@
     url: https://github.com/passff/passff-host/releases/latest/download/install_host_app.sh
     dest: "{{ user_dir_applications }}"
     mode: "u+rwx"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    setype: system_conf_t
+    seuser: system_u
 
 - name: Install passff-host
-  shell: >-
-    BROWSER=firefox
-    bash "{{ user_dir_applications }}/install_host_app.sh"
+  command:
+    argv:
+      - BROWSER=firefox
+      - "{{ user_dir_applications }}/install_host_app.sh"
+      - firefox
+    creates: "{{ user_dir_home }}/.mozilla/native-messaging-hosts"

@@ -4,6 +4,7 @@
   become: true
 
   vars:
+    os_platform: linux
     ansible_python_interpreter: /usr/bin/python3
     target_user: zenobius
     target_group: zenobius
@@ -21,7 +22,7 @@
     - { role: airtonix.provisioning/system/androiddev, tags: ['android', 'dev', 'system'] }
     - { role: airtonix.provisioning/system/flatpak, tags: ['flatpak', 'packages'] }
     - { role: airtonix.provisioning/apps/syncthing, tags: ['syncthing', 'sharing', 'desktop', 'apps'] }
-    - { role: airtonix.provisioning/apps/kdeconnect, tags: ['kdeconnect', 'phone', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/gsconnect, tags: ['gsconnect', 'phone', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/docker, tags: ['docker', 'virtual', 'apps'] }
     - { role: airtonix.provisioning/apps/adb, tags: ['android', 'terminal', 'dev', 'apps'] }
     - { role: airtonix.provisioning/apps/tusk, tags: ['tusk', 'terminal', 'dev', 'apps'] }

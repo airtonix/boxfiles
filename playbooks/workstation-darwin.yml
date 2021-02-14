@@ -15,6 +15,7 @@
       private: no
 
   vars:
+    os_platform: darwin
     ansible_python_interpreter: /usr/bin/python3
     user_dir_home: /home/{{ target_user }}
 

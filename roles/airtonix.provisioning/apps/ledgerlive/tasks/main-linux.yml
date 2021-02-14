@@ -4,3 +4,11 @@
     url: https://download-live.ledger.com/releases/latest/download/linux
     dest: "{{ user_dir_applications }}"
     mode: "u+rwx"
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+- name: Fetch UDEV rules
+  become: true
+  shell: >
+    wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/master/add_udev_rules.sh | bash
+  args:
+    executable: /bin/bash

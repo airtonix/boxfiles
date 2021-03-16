@@ -163,7 +163,7 @@ function osinformation () {
 
 }
 
-function setupansible () {
+function setup_ansible () {
   osinformation
 
   files=(
@@ -187,13 +187,15 @@ function setup_linux_x64_fedora () {
   sudo dnf install git ansible -y
 }
 
-function main () {
-  echo "args: $@"
-  setupansible
+function install_requirements () {
 
   ansible-playbook \
     --verbose \
     playbooks/galaxy.yml
+}
+
+function run () {
+  echo "args: $@"
 
   ansible-playbook \
     --verbose \
@@ -201,6 +203,31 @@ function main () {
     playbooks/workstation-${OSINFO_PLATFORM}.yml \
     "$@"
 }
+
+
+function main () {
+    args=( "$@"  )
+    operation="$1"
+    echo "operation: $operation"
+    shift 1
+    case $operation in
+        setup)
+            echo "== Debug =="
+            setup_ansible
+        ;;
+        requirements)
+            echo "== Requirements =="
+            install_requirements
+        ;;
+        *)
+            echo "== Workstation: ${OSINFO_PLATFORM} =="
+            setup_ansible
+            install_requirements
+            run_playbook "playbooks/workstation-${OSINFO_PLATFORM}.yml" $args
+        ;;
+    esac
+}
+
 
 # Run the script
 main "$@"

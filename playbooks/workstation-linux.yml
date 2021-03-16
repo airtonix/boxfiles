@@ -35,7 +35,8 @@
     - { role: airtonix.provisioning/apps/ssh, tags: ['dev', 'ssh', 'terminal', 'apps'] }
     - { role: airtonix.provisioning/apps/sublime-text, tags: ['sublime', 'dev', 'ide', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/ms-vscode, tags: ['vscode', 'dev', 'ide', 'desktop', 'apps'] }
-    - { role: airtonix.provisioning/apps/firefox, tags: ['browser', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/firefox, tags: ['firefox', 'browser', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/chromium, tags: ['chromium', 'browser', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/ms-teams, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/slack, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/steam, tags: ['steam', 'games', 'desktop', 'apps'] }

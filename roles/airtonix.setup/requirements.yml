@@ -7,3 +7,6 @@ roles:
   - name: alzadude.firefox
     version: c29e98d
   - name: nickpack.android_sdk
+
+collections:
+  - name: community.general

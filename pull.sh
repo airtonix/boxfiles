@@ -5,258 +5,76 @@ set -o nounset # Disallow expansion of unset variables
 set -o pipefail # Use last non-zero exit code in a pipeline
 
 # Define constants
-readonly PLAYBOOK_REPO="https://github.com/airtonix/boxfiles.git"
+readonly PLAYBOOK_ACCOUNT="airtonix"
+readonly PLAYBOOK_REPO="boxfiles"
 readonly PLAYBOOK_BRANCH="master"
 
-#
-# Helper Function
-#
-function tolowercase() {
-    tr '[:upper:]' '[:lower:]' <<<"$1"
+function log() {
+    local prefix='[DOTFILES-INSTALL]'
+    local timestamp=`date +%y/%m/%d_%H:%M:%S`
+    echo $prefix $timestamp :: "${*}"
 }
 
-
-function function_exists () {
-    declare -f -F $1 > /dev/null
-    return $?
+function info() {
+    [[ ! -z "${VERBOSE}" ]] && log "${*}"
 }
 
-function osinformation () {
-  #
-  # Environment Information
-  #
-  UNKNOWN_PROCESSOR_LABEL=unknown_processor
-  UNKNOWN_PLATFORM_LABEL=unknown_platform
-  UNKNOWN_OS_LABEL=unknown_os
-  UNKNOWN_OS_VERSION=unknown_version
+readonly BOXFILES_TMP_STORAGE=$(mktemp -d -t $account-$repo-$branch-XXXXXX)
+readonly BOXFILES_SOURCEFILE="${BOXFILES_TMP_STORAGE}/boxfiles.zip"
+readonly BOXFILES_INSTALL_TARGET=$HOME/.dotfiles
+readonly BOXFILES_INSTALL_CMD=run.sh
 
-  #
-  # Determine System Processor
-  #
-  if uname -p >/dev/null 2>/dev/null; then
-      PROCESSOR=`uname -p`
-  else
-      PROCESSOR=$UNKNOWN_PROCESSOR_LABEL
-  fi
-  if [ "x$PROCESSOR" != x$UNKNOWN_PROCESSOR_LABEL ]; then
-      : do nothing
-  elif [ -x /bin/arch ]; then
-      PROCESSOR=`/bin/arch`
-  elif uname >/dev/null 2>/dev/null; then
-      case `uname` in
-          AIX) PROCESSOR=rs6000-aix ;;
-          FreeBSD)
-              PLATFORM=bsd
-              if uname -m >/dev/null 2>/dev/null; then
-                  PROCESSOR=`uname -m`
-              else
-                  PROCESSOR=$UNKNOWN_PROCESSOR_LABEL
-              fi
-              ;;
-          Linux)
-              PLATFORM=linux;
-              if uname -m >/dev/null 2>/dev/null; then
-                  case `uname -m` in
-                  i586|i486|i386)
-                      PROCESSOR=x86 ;;
-                  *)
-                      PROCESSOR=`uname -m` ;;
-                  esac
-              else
-                  PROCESSOR=$UNKNOWN_PROCESSOR_LABEL
-              fi
-              ;;
-          *) PROCESSOR=$UNKNOWN_PROCESSOR_LABEL ;;
-      esac
-      exit 0
-  fi
-  case $PROCESSOR in
-      sun4)
-          PROCESSOR=sparc ;;
-      powerpc)
-          PROCESSOR=ppc ;;
-      i386|i486|i586|i686|Pentium*|AMD?Athlon*)
-          PROCESSOR=x86 ;;
-      x86_64|amd64)
-          PROCESSOR=x64 ;;
-  esac
+info "
+  BOXFILES_TMP_STORAGE: ${BOXFILES_TMP_STORAGE}
+  BOXFILES_SOURCEFILE: ${BOXFILES_SOURCEFILE}
+  BOXFILES_INSTALL_TARGET: ${BOXFILES_INSTALL_TARGET}
+"
 
-  #
-  # Determine OS Platform
-  #
-  case $PROCESSOR in
-      sparc)
-          case `uname -r` in
-              4.*)          PLATFORM=sunos ;;
-              [5-9].*)      PLATFORM=solaris ;;
-              *)            PLATFORM=$UNKNOWN_PLATFORM_LABEL ;;
-          esac ;;
-      ppc)
-          case `uname` in
-              Darwin)       PLATFORM=darwin ;;
-              *)            PLATFORM=$UNKNOWN_PLATFORM_LABEL ;;
-          esac ;;
-      mips)
-          case `uname -s` in
-              IRIX)
-                  case `uname -r` in
-                      5.*)  PLATFORM=irix5 ;;
-                      *)    PLATFORM=$UNKNOWN_PLATFORM_LABEL ;;
-                  esac ;;
-              Linux)        PLATFORM=linux ;;
-              *)            PLATFORM=$UNKNOWN_PLATFORM_LABEL ;;
-          esac ;;
-      x86|x64)
-          case `uname` in
-              FreeBSD)      PLATFORM=bsd ;;
-              Linux)        PLATFORM=linux ;;
-              Darwin)       PLATFORM=darwin ;;
-              *)            PLATFORM=unknown ;;
-          esac ;;
-      alpha)
-          case `uname` in
-              OSF1)         PLATFORM=osf1 ;;
-              Linux|linux)  PLATFORM=linux ;;
-              *)            PLATFORM=unknown ;;
-              esac ;;
-      *)                    PLATFORM=$UNKNOWN_PLATFORM_LABEL ;;
-  esac
-
-  export OSINFO_ARCH=$(tolowercase $PROCESSOR)
-  export OSINFO_PLATFORM=$(tolowercase $PLATFORM)
-
-  #
-  # Determine OS Name
-  #
-  case $PLATFORM in
-      linux)
-          if [ -f /etc/os-release ]; then
-              # freedesktop.org and systemd
-              . /etc/os-release
-              OS_NAME=$NAME
-              OS_VERSION=$VERSION_ID
-          elif type lsb_release >/dev/null 2>&1; then
-              # linuxbase.org
-              OS_NAME=$(lsb_release -si)
-              OS_VERSION=$(lsb_release -sr)
-          elif [ -f /etc/lsb-release ]; then
-              # For some versions of Debian/Ubuntu without lsb_release command
-              . /etc/lsb-release
-              OS_NAME=$DISTRIB_ID
-              OS_VERSION=$DISTRIB_RELEASE
-          elif [ -f /etc/debian_version ]; then
-              # Older Debian/Ubuntu/etc.
-              OS_NAME=Debian
-              OS_VERSION=$(cat /etc/debian_version)
-          elif [ -f /etc/SuSe-release ]; then
-              # Older SuSE/etc.
-              ...
-          elif [ -f /etc/redhat-release ]; then
-              # Older Red Hat, CentOS, etc.
-              ...
-          else
-              # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
-              OS_NAME=$(uname -s)
-              OS_VERSION=$(uname -r)
-          fi
-      ;;
-      *)
-          OS_NAME=$UNKNOWN_OS_LABEL
-          OS_VERSION=$UNKNOWN_OS_VERSION
-      ;;
-  esac
-
-  export OSINFO_NAME=$(tolowercase $OS_NAME)
-  export OSINFO_VERSION=$(tolowercase $OS_VERSION)
-
+function Download {
+  local Url=$1
+  local File=$2
+  log "Downloading ${Url} to ${File}"
+  [ -z "${BOXFILES_NODOWNLOAD}" ] && curl -L $Url --output $File
+  info $(ls -a1 $(dirname ${File}))
 }
 
-function install_ansible () {
-  osinformation
-
-  files=(
-    "${OSINFO_PLATFORM}_${OSINFO_ARCH}_${OSINFO_NAME}_${OSINFO_VERSION}"
-    "${OSINFO_PLATFORM}_${OSINFO_ARCH}_${OSINFO_NAME}"
-    "${OSINFO_PLATFORM}_${OSINFO_ARCH}"
-    "${OSINFO_PLATFORM}"
-  )
-
-  for item in "${files[@]}"; do
-    echo "testing for ${item}";
-    function_exists "setup_$item" \
-      && {
-        echo "setting up ${item}";
-        "setup_$item";
-        break;
-      }
-  done
+function Unzip {
+  local File=$1
+  local Destination=${2:-pwd}
+  log "Unzipping ${File} to ${Destination}"
+  [ -z "${BOXFILES_NOUNZIP}" ] && \
+    mkdir -p $Destination && \
+    unzip $File -d $BOXFILES_TMP_STORAGE && \
+    mv $BOXFILES_TMP_STORAGE/*/* $Destination
+  info Files unzipped: $(find "$Destination" -type f | wc -l)
 }
 
-function setup_ansible () {
-  ansible-pull \
-    --url "${PLAYBOOK_REPO}" \
-    --checkout ${PLAYBOOK_BRANCH} \
-    --verbose \
-    --inventory localhost, \
-    "playbooks/galaxy.yml"
+function Setup {
+  local Current=$(pwd)
+  local Source=$1
+  log "Setup ${Source}"
+  cd $Source
+  [ -z "${BOXFILES_NOSETUP}" ] && \
+  [ -f "${BOXFILES_INSTALL_CMD}" ] && \
+    chmod +x $BOXFILES_INSTALL_CMD && \
+    $BOXFILES_INSTALL_CMD
+
+  cd $Current
 }
 
-function check_sudo_access () {
-    echo "Checking Sudo Access"
-    sudo echo "Sudo Access Granted" || exit 1
+function Clean {
+  local Target=$1
+  log "Clean ${Target}"
+  [ -z "${BOXFILES_NOCLEAN}" ] && \
+    [ -d "$Target" ] &&
+    rm -rf $Target
 }
 
-function setup_linux_x64_fedora () {
-  sudo dnf install git ansible -y
-}
+log "Start"
 
-function setup_darwin_x86 () {
-    echo "installing homebrew"
-    check_sudo_access
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
-    echo "installing python3"
-    brew list python@3.9 &>/dev/null || brew install python@3.9;
-    brew link python@3.9 --overwrite;
-    echo "installing pip3"
-    curl -fsSL https://bootstrap.pypa.io/get-pip.py | $(which python3);
-    echo "installing ansible"
-    CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install --user ansible;
-    export PATH=$PATH:~/Library/Python/3.9/bin
-}
+Download "https://github.com/${PLAYBOOK_ACCOUNT}/$PLAYBOOK_REPO/archive/$PLAYBOOK_BRANCH.zip" $BOXFILES_SOURCEFILE
+Clean $BOXFILES_INSTALL_TARGET
+Unzip $BOXFILES_SOURCEFILE $BOXFILES_INSTALL_TARGET
+Setup $BOXFILES_INSTALL_TARGET
 
-function run_playbook () {
-  playbook="$1"
-  shift 1
-  echo "== Playbook: ${playbook} =="
-  ansible-pull \
-    --url "${PLAYBOOK_REPO}" \
-    --checkout ${PLAYBOOK_BRANCH} \
-    --verbose \
-    --purge \
-    --inventory localhost, \
-    --ask-become-pass \
-    $playbook \
-    "$@"
-}
-
-function main () {
-    args=( "$@"  )
-    playbook="$1"
-    shift 1
-    case $playbook in
-        debug)
-            echo "== Debug =="
-            install_ansible
-            run_playbook playbooks/debug.yml $args
-        ;;
-        *)
-            echo "== Workstation: ${OSINFO_PLATFORM} =="
-            install_ansible
-            setup_ansible
-            run_playbook "playbooks/workstation-${OSINFO_PLATFORM}.yml" $args
-        ;;
-    esac
-}
-
-# Run the script
-main "$@"
+log "Done"

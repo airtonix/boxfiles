@@ -1,6 +1,12 @@
 ---
-- name: Install requirements
+- name: Install requirements (Roles)
   command: |
     ansible-galaxy install \
+      -p ~/.ansible/roles \
+      -r {{ role_path }}/requirements.yml
+
+- name: Install requirements (Collections)
+  command: |
+    ansible-galaxy collection install \
       -p ~/.ansible/roles \
       -r {{ role_path }}/requirements.yml

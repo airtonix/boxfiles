@@ -9,4 +9,4 @@ roles:
   - name: nickpack.android_sdk
 
 collections:
-  - name: community.general
+  - community.general

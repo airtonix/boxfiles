@@ -61,14 +61,14 @@ function main () {
             """
         ;;
         setup)
-            echo "== Debug =="
+            echo "== Setup =="
             setup_ansible
         ;;
-        requirements)
+        requirements|deps)
             echo "== Requirements =="
             install_requirements
         ;;
-        provision)
+        provision|start|*)
             echo "== Workstation: ${OSINFO_PLATFORM} =="
             setup_ansible
             install_requirements

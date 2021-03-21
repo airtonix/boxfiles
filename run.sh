@@ -204,7 +204,6 @@ function run () {
     "$@"
 }
 
-
 function main () {
     args=( "$@"  )
     operation="$1"

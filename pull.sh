@@ -239,7 +239,6 @@ function run_playbook () {
     "$@"
 }
 
-
 function main () {
     args=( "$@"  )
     playbook="$1"

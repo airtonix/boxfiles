@@ -40,8 +40,8 @@
     - { role: airtonix.provisioning/apps/ms-teams, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/slack, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/steam, tags: ['steam', 'games', 'desktop', 'apps'] }
-    - { role: airtonix.provisioning/apps/ledgerlive, tags: ['finance', 'desktop', 'apps'] }
-    - { role: airtonix.provisioning/apps/mailspring, tags: ['email', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/ledgerlive, tags: ['ledgerlive', 'finance', 'desktop', 'apps'] }
+    - { role: airtonix.provisioning/apps/mailspring, tags: ['mailspring', 'email', 'desktop', 'apps'] }
 
   tasks:
     - name: install base packages

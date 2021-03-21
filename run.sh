@@ -7,41 +7,70 @@ set -o pipefail # Use last non-zero exit code in a pipeline
 source ./lib.sh
 
 function setup_ansible () {
-  osinformation
-
-  files=(
-    "${OSINFO_PLATFORM}_${OSINFO_ARCH}_${OSINFO_NAME}_${OSINFO_VERSION}"
-    "${OSINFO_PLATFORM}_${OSINFO_ARCH}_${OSINFO_NAME}"
-    "${OSINFO_PLATFORM}_${OSINFO_ARCH}"
-    "${OSINFO_PLATFORM}"
-  )
-
-  for item in "${files[@]}"; do
-    [ -f "setup_${item}.sh" ] \
-      && {
-        echo "Setting up ${item}";
-        "./setup_${item}.sh";
-        break;
-      }
-  done
+  setup_file=get_setupfile
+  echo "== Setup =="
+  echo "> ${setup_file}";
+  $setup_file
 }
 
 function install_requirements () {
+  echo "== Requirements =="
   ansible-playbook \
     --verbose \
     playbooks/galaxy.yml
 }
 
+function list_tags () {
+  playbook_file=$(get_playbook_file)
+  echo "== Tags: ${playbook_file} =="
+  ansible-playbook --list-tags $playbook_file 2>&1 |
+    grep "TASK TAGS" |
+    cut -d":" -f2 |
+    awk '{sub(/\[/, "")sub(/\]/, "")}1' |
+    sed -e 's/,//g' |
+    xargs -n 1 |
+    sort -u |
+    column
+}
+
 function run_playbook () {
+  echo "== Provision: ${OSINFO_PLATFORM} =="
+  playbook=$(get_playbook_file)
   ansible-playbook \
     --verbose \
     --ask-become-pass \
-    playbooks/workstation-${OSINFO_PLATFORM}.yml \
+     \
     "${@:-}"
 }
 
+function print_help () {
+  echo """
+  == Help ==
+
+  ./run.sh [command] [args]
+
+  -- Commands --
+  provision|start         install all the things
+  info                    print environment info
+  setup                   setup ansible and dependencies
+  requiremenst|deps       setup dependencies
+  tags                    list all the tags in the playbook
+  help                    this text.
+
+  -- Args --
+
+  provision --tags=
+  """
+}
+
+function provision () {
+  [ -z "${SKIP_SETUP:-}" ] && setup_ansible
+  [ -z "${SKIP_DEPS:-}" ] && install_requirements
+  run_playbook "playbooks/workstation-${OSINFO_PLATFORM}.yml" "${@:-}"
+}
+
 function main () {
-    local operation="${1:-provision}"
+    local operation="${1:-}"
     echo "operation: $operation"
 
     local count="${#@}"
@@ -60,19 +89,24 @@ function main () {
      version: ${OSINFO_VERSION}
             """
         ;;
+        help)
+            print_help
+        ;;
         setup)
-            echo "== Setup =="
             setup_ansible
+            install_requirements
         ;;
         requirements|deps)
-            echo "== Requirements =="
             install_requirements
         ;;
-        provision|start|*)
-            echo "== Workstation: ${OSINFO_PLATFORM} =="
-            setup_ansible
-            install_requirements
-            run_playbook "playbooks/workstation-${OSINFO_PLATFORM}.yml" ${args[@]:-}
+        tags)
+            list_tags
+        ;;
+        tagged)
+            provision --tags ${args[@]:-}
+        ;;
+        *)
+            provision ${args[@]:-}
         ;;
     esac
 }

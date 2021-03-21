@@ -162,3 +162,28 @@ function check_sudo_access () {
     echo "Checking Sudo Access"
     sudo echo "Sudo Access Granted" || exit 1
 }
+
+
+function get_setupfile () {
+  osinformation
+
+  files=(
+    "${OSINFO_PLATFORM}_${OSINFO_ARCH}_${OSINFO_NAME}_${OSINFO_VERSION}"
+    "${OSINFO_PLATFORM}_${OSINFO_ARCH}_${OSINFO_NAME}"
+    "${OSINFO_PLATFORM}_${OSINFO_ARCH}"
+    "${OSINFO_PLATFORM}"
+  )
+
+  for item in "${files[@]}"; do
+    [ -f "setup_${item}.sh" ] \
+      && {
+        echo "./setup_${item}.sh";
+        break;
+      }
+  done
+}
+
+function get_playbook_file () {
+  osinformation
+  echo "playbooks/workstation-${OSINFO_PLATFORM}.yml"
+}

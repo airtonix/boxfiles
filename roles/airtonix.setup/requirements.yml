@@ -7,6 +7,8 @@ roles:
   - name: alzadude.firefox
     version: c29e98d
   - name: nickpack.android_sdk
+  - name: marverix.chromium
+    version: v1.0.0
 
 collections:
   - community.general

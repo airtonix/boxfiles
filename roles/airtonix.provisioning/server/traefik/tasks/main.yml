@@ -1,0 +1,20 @@
+---
+- name: Traefik Unitfile
+  include_role:
+    name: mhutter.docker-systemd-service
+  vars:
+    container_name: traefik
+    container_image: traefik:v2.5
+    container_volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:rw'
+    container_ports:
+      - '80:80'
+      - '8080:8080'
+    container_labels:
+      - 'traefik.http.routers.traefik-ui-router.service=traefik-ui-service'
+      - 'traefik.http.routers.traefik-ui-router.rule=Host(`traefik.home.lan`)'
+      - 'traefik.http.services.traefik-ui-service.loadbalancer.server.port=8080'
+    container_cmd: |
+      --api.insecure=true
+      --providers.docker
+# --providers.file.directory=/yacht/AppData/Config/Traefik

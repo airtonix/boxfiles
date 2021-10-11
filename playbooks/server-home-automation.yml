@@ -1,0 +1,11 @@
+---
+- name: Home Automation Server Configuration
+  hosts: all
+  become: true
+
+  vars:
+    os_platform: linux
+    ansible_python_interpreter: /usr/bin/python3
+
+  roles:
+    - { role: airtonix.provisioning/system/base }

@@ -18,3 +18,7 @@ galaxy_info:
 
   galaxy_tags:
     - linux
+
+dependencies:
+  - role: airtonix.provisioning/apps/git
+  - role: airtonix.provisioning/system/python

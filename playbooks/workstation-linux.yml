@@ -16,8 +16,6 @@
   roles:
     - { role: airtonix.provisioning/system/base, tags: ['base', 'system'] }
     - { role: airtonix.provisioning/system/python, tags: ['python', 'language', 'system'] }
-    - { role: airtonix.provisioning/system/ruby, tags: ['ruby', 'language', 'system'] }
-    - { role: airtonix.provisioning/system/nodejs-volta, tags: ['nodejs', 'language', 'system'] }
     - { role: airtonix.provisioning/system/docker, tags: ['docker', 'virtual', 'system'] }
     - { role: airtonix.provisioning/system/androiddev, tags: ['android', 'dev', 'system'] }
     - { role: airtonix.provisioning/system/flatpak, tags: ['flatpak', 'packages'] }
@@ -40,7 +38,6 @@
     - { role: airtonix.provisioning/apps/ms-teams, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/slack, tags: ['chat', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/steam, tags: ['steam', 'games', 'desktop', 'apps'] }
-    - { role: airtonix.provisioning/apps/ledgerlive, tags: ['ledgerlive', 'finance', 'desktop', 'apps'] }
     - { role: airtonix.provisioning/apps/mailspring, tags: ['mailspring', 'email', 'desktop', 'apps'] }
 
   tasks:

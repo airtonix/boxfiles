@@ -1,4 +1,7 @@
 ---
+- debug:
+    msg: "{{ hostvars[inventory_hostname].ansible_distribution }}@{{ hostvars[inventory_hostname].ansible_distribution_version }}"
+
 - name: assert supported distribution
   assert:
     that:

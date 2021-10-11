@@ -2,25 +2,24 @@
 # Stop unpredictible behavior
 set -o errexit # Exit on most errors
 set -o nounset # Disallow expansion of unset variables
-set -o pipefail # Use last non-zero exit code in a pipeline
 
-source ./lib.sh
+. ./lib.sh
 
-function setup_ansible () {
+setup_ansible () {
   setup_file=get_setupfile
   echo "== Setup =="
   echo "> ${setup_file}";
   $setup_file
 }
 
-function install_requirements () {
+install_requirements () {
   echo "== Requirements =="
   ansible-playbook \
     --verbose \
     playbooks/galaxy.yml
 }
 
-function list_tags () {
+list_tags () {
   playbook_file=$(get_playbook_file)
   echo "== Tags: ${playbook_file} =="
   ansible-playbook --list-tags $playbook_file 2>&1 |
@@ -33,9 +32,9 @@ function list_tags () {
     column
 }
 
-function run_playbook () {
+run_playbook () {
   echo "== Provision: ${OSINFO_PLATFORM} =="
-  playbook=$(get_playbook_file)
+  # playbook=$(get_playbook_file)
   ansible-playbook \
     --verbose \
     --ask-become-pass \
@@ -43,7 +42,7 @@ function run_playbook () {
     "${@:-}"
 }
 
-function print_help () {
+print_help () {
   echo """
   == Help ==
 
@@ -63,13 +62,13 @@ function print_help () {
   """
 }
 
-function provision () {
+provision () {
   [ -z "${SKIP_SETUP:-}" ] && setup_ansible
   [ -z "${SKIP_DEPS:-}" ] && install_requirements
   run_playbook "playbooks/workstation-${OSINFO_PLATFORM}.yml" "${@:-}"
 }
 
-function main () {
+main () {
     local operation="${1:-}"
     echo "operation: $operation"
 

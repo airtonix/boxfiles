@@ -1,18 +1,48 @@
 ---
-- name: Home Assistant Unitfile
+- name: HomeAssistant Config Store
+  ansible.builtin.file:
+    path: /yacht/AppData/Config/HomeAssistant/config
+    state: directory
+    mode: '0755'
+
+- name: HomeAssistant Unitfile
   include_role:
-    name: mhutter.docker-systemd-service
+    name: kibatic.docker-systemd
   vars:
-    container_name: homeassistant
-    container_image: linuxserver/homeassistant:latest
-    container_args: --network=bridge
-    container_env:
-      TZ: Australia/Adelaide
-    container_volumes:
-      - '/yacht/AppData/Config/HomeAssistant/config:/config'
-    container_ports:
-      - '8123:8123'
-    container_labels:
-      - 'traefik.http.routers.home-assistant-router.rule=Host(`assistant.home.lan`)'
-      - 'traefik.http.services.home-assistant-service.loadbalancer.server.port=8123'
-      - 'traefik.http.routers.home-assistant-router.service=home-assistant-service'
+    systemd_units:
+      - name: homeassistant
+        restart_unit: true
+        host_copy: []
+        image: linuxserver/homeassistant:latest
+        network: host
+        ports:
+          - '8123:8123'
+        env:
+          TZ: Australia/Adelaide
+        volumes:
+          - '/yacht/AppData/Config/HomeAssistant/config:/config'
+        labels:
+          - 'traefik.http.routers.home-assistant-router.rule=Host(\`assistant.home.lan\`)'
+          - 'traefik.http.services.home-assistant-service.loadbalancer.server.port=8123'
+          - 'traefik.http.routers.home-assistant-router.service=home-assistant-service'
+      - name: homeassistant-mosquitto
+        restart_unit: true
+        host_copy: []
+        image: 'eclipse-mosquitto:2.0.12'
+        ports:
+          - '1883:1883'
+          - '9001:9001'
+        env:
+          TZ: Australia/Adelaide
+          PGID: 1000
+          PUID: 1000
+          UMASK_SET: 000
+        volumes:
+          - '/yacht/AppData/Config/HomeAssistantMQTT/config/mosquitto.conf:/mosquitto/config/mosquitto.conf'
+          - '/yacht/AppData/Config/HomeAssistantMQTT/config/passwd:/mosquitto/config/passwd'
+          - '/yacht/AppData/Config/HomeAssistantMQTT/data:/mosquitto/data'
+          - '/yacht/AppData/Config/HomeAssistantMQTT/log:/mosquitto/log'
+        labels:
+          - 'traefik.http.routers.home-assistant-mqtt-router.rule=Host(\`assistant-mqtt.home.lan\`)'
+          - 'traefik.http.services.home-assistant-mqtt-service.loadbalancer.server.port=1883'
+          - 'traefik.http.routers.home-assistant-mqtt-router.service=home-assistant-mqtt-service'

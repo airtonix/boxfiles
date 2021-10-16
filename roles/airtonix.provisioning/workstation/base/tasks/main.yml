@@ -6,3 +6,5 @@
     mode: '0755'
     owner: "{{ target_user }}"
     group: "{{ target_group }}"
+- name: 'Userland tasks'
+  include_tasks: 'user.yml'

@@ -1,6 +1,4 @@
 ---
-- name: assert supported distribution
-  assert:
-    that:
-      - "ansible_pkg_mgr in ('apt', 'yum', 'dnf', 'zypper', 'homebrew')"
-- include_tasks: main-{{ ansible_pkg_mgr }}.yml
+- name: 'install with ({{ ansible_pkg_mgr }})'
+  include_tasks: 'install-with-{{ ansible_pkg_mgr }}.yml'
+  when: (role_path, '/tasks/install-with-', ansible_pkg_mgr, '.yml') | join('') is file

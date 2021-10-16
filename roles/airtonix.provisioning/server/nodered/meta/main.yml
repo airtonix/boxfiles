@@ -1,8 +1,9 @@
 ---
 galaxy_info:
-  role_name: airtonix.provisioning/system/base
+  role_name: nodered
   license: BSD-3-Clause
-
+  author: 'me'
+  description: 'stuff'
   min_ansible_version: 2.9
 
   platforms:
@@ -12,12 +13,6 @@ galaxy_info:
     - name: Fedora
       versions:
         - all
-    - name: Macosx
-      versions:
-        - all
 
   galaxy_tags:
     - linux
-
-dependencies:
-  - role: mhutter.docker-systemd-service

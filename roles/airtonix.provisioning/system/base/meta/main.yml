@@ -2,7 +2,8 @@
 galaxy_info:
   role_name: airtonix.provisioning/system/base
   license: BSD-3-Clause
-
+  author: 'me'
+  description: 'stuff'
   min_ansible_version: 2.9
 
   platforms:

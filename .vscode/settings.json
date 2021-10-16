@@ -1,0 +1,4 @@
+{
+    "ansible.ansible.path": "poetry run ansible",
+    "ansible.ansibleLint.path": "poetry run ansible-lint"
+}

@@ -38,4 +38,4 @@
   service:
     name: docker.service
     state: started
-    enabled: yes
+    enabled: true

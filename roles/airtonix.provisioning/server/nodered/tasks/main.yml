@@ -1,0 +1,22 @@
+---
+- name: NodeRed Config Store
+  ansible.builtin.file:
+    path: /yacht/AppData/Config/NodeRed/config
+    state: directory
+    mode: '0755'
+
+- name: NodeRed Unitfile
+  include_role:
+    name: kibatic.docker-systemd
+  vars:
+    systemd_units:
+      - name: nodered
+        image: nodered/node-red:latest
+        volumes:
+          - '/yacht/AppData/Config/NodeRed/config:/config'
+        ports:
+          - '1880:1880'
+        labels:
+          - 'traefik.http.routers.nodered-ui-router.service=nodered-ui-service'
+          - 'traefik.http.routers.nodered-ui-router.rule=Host(`nodered.home.lan`)'
+          - 'traefik.http.services.nodered-ui-service.loadbalancer.server.port=1880'

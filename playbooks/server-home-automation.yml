@@ -8,4 +8,7 @@
     ansible_python_interpreter: /usr/bin/python3
 
   roles:
-    - { role: airtonix.provisioning/system/base }
+    - role: airtonix.provisioning/system/base
+    - role: airtonix.provisioning/server/traefik
+    - role: airtonix.provisioning/server/nodered
+    - role: airtonix.provisioning/server/homeassistant

@@ -9,7 +9,8 @@ roles:
   - name: nickpack.android_sdk
   - name: marverix.chromium
     version: v1.0.0
-  - role: mhutter.docker-systemd-service
+  - role: kibatic.docker-systemd
+    version: 0.2.9
 
 collections:
   - community.general

@@ -8,7 +8,7 @@
   user:
     name: "{{ target_user }}"
     groups: docker
-    append: yes
+    append: true
 
 - name: Install docker-compose
   package:

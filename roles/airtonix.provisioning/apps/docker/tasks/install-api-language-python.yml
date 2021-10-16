@@ -1,0 +1,9 @@
+---
+- name: Include Python
+  include_role:
+    name: airtonix.provisioning/system/python
+
+- name: Install python docker api
+  pip:
+    name:
+      - docker

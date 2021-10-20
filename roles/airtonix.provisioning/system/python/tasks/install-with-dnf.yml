@@ -34,7 +34,7 @@
 
 - name: (Fedora) install/upgrade pipenv, poetry
   package:
-    state: latest
+    state: present
     name:
       - pipenv
       - poetry
@@ -45,7 +45,7 @@
   become_user: "{{ target_user }}"
   pip:
     executable: pip3
-    state: latest
+    state: present
     extra_args: "--user"
     name:
       - pipenv

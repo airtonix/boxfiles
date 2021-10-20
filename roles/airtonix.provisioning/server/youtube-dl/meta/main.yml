@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: portainer
+  role_name: youtubedl
   license: BSD-3-Clause
   author: 'me'
   description: 'stuff'
@@ -16,8 +16,3 @@ galaxy_info:
 
   galaxy_tags:
     - linux
-
-dependencies:
-  - role: airtonix.provisioning/apps/docker
-    vars:
-      language: python

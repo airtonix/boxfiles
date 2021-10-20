@@ -1,0 +1,23 @@
+---
+- name: YoutubeDL Config Store
+  ansible.builtin.file:
+    path: /srv/dev-disk-by-uuid-4b14b187-df1a-4a61-90ad-bdb3e28eaae5/Docker/torrents/YoutubeDL
+    state: directory
+    mode: '0755'
+
+- name: YoutubeDL Unitfile
+  include_role:
+    name: kibatic.docker-systemd
+  vars:
+    removed_units:
+      - name: youtubedl
+        image: kmb32123/youtube-dl-server
+        volumes:
+          - '/srv/dev-disk-by-uuid-4b14b187-df1a-4a61-90ad-bdb3e28eaae5/Docker/torrents/YoutubeDL:/youtube-dl'
+        ports:
+          - '8113:8080'
+        network: host
+        labels:
+          - 'traefik.http.routers.youtubedl-ui-router.service=youtubedl-ui-service'
+          - 'traefik.http.routers.youtubedl-ui-router.rule=Host(\`youtubedl.home.lan\`)'
+          - 'traefik.http.services.youtubedl-ui-service.loadbalancer.server.port=8080'

@@ -1,17 +1,8 @@
 ---
 - name: Portainer Unitfile
   include_role:
-    name: mhutter.docker-systemd-service
+    name: airtonix.systemd/dockercompose
   vars:
-    container_name: portainer
-    container_image: portainer/portainer-ce:latest
-    container_volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock'
-    container_ports:
-      - '8000:8000'
-      - '9000:9000'
-      - '9443:9443'
-    container_labels:
-      - 'traefik.http.routers.portainer-ui-router.service=portainer-ui-service'
-      - 'traefik.http.routers.portainer-ui-router.rule=Host(`portainer.home.lan`)'
-      - 'traefik.http.services.portainer-ui-service.loadbalancer.server.port=8000'
+    app_name: portainer-compose-service
+    compose_source: files/
+    compose_workdir: /src/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/Portainer

@@ -1,0 +1,20 @@
+---
+app_name: "docker-compose-service"
+compose_workdir: "/compose"
+
+# Local file containing docker compose service description
+compose_file: null
+
+# Maps .env_file name to variables in this file
+compose_vars:
+  ".env": {}
+
+# If you use private registry fill service, username and password.
+docker_registry_service: null
+docker_registry_username: null
+docker_registry_password: null
+
+compose_standard_output: "null"
+compose_standard_error: "null"
+
+wait_for_service_timeout: 0

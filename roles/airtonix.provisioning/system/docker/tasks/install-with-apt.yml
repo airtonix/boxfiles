@@ -1,0 +1,62 @@
+---
+- name: remove docker (/usr/bin/docker)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - moby-engine
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+    - runc
+    - containerd
+    - docker.io
+
+- name: update
+  ansible.builtin.apt:
+    update-cache: true
+    state: present
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+
+- name: add docker gpg key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: add docker.io repo
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+    state: present
+
+- name: install docker.io
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: start/enable docker.service
+  ansible.builtin.service:
+    name: docker.service
+    state: started
+    enabled: true
+
+- name: Install docker-compose
+  remote_user: ubuntu
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'

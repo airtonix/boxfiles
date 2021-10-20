@@ -1,4 +1,4 @@
-echo #!/bin/sh
-source ./lib.sh
+#!/bin/sh
+. ./lib.sh
 
 sudo dnf install git ansible -y

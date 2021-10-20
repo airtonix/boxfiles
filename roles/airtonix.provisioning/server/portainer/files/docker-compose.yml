@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  portainer:
+    restart: always
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+      - "9443:9443"
+    labels:
+      traefik.http.routers.portainer-ui-router.service: portainer-ui-service
+      traefik.http.routers.portainer-ui-router.rule: Host(`portainer.home.lan`)
+      traefik.http.services.portainer-ui-service.loadbalancer.server.port: 9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - portainer_service_data_volume:/data
+
+volumes:
+  portainer_service_data_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

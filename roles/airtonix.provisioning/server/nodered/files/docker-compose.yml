@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  nodered:
+    image: nodered/node-red:latest
+    labels:
+      traefik.http.routers.nodered-ui-router.service: nodered-ui-service
+      traefik.http.routers.nodered-ui-router.rule: Host(`nodered.home.lan`)
+      traefik.http.services.nodered-ui-service.loadbalancer.server.port: 1880
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - nodered_service_data_volume:/data
+    group_add:
+      - 993
+
+volumes:
+  nodered_service_data_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

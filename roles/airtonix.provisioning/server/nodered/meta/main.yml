@@ -16,3 +16,8 @@ galaxy_info:
 
   galaxy_tags:
     - linux
+
+dependencies:
+  - role: airtonix.provisioning/apps/docker
+    vars:
+      language: python

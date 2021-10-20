@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  traefik:
+    restart: always
+    image: traefik:v2.5
+    ports:
+      - "80:80"
+      - "8080:8080"
+    labels:
+      traefik.http.routers.traefik-ui-router.service: traefik-ui-service
+      traefik.http.routers.traefik-ui-router.rule: Host(`traefik.home.lan`)
+      traefik.http.services.traefik-ui-service.loadbalancer.server.port: 8080
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+
+    command:
+      - --log.level=INFO
+      - --api.insecure=true
+      - --providers.docker
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

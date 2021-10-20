@@ -9,6 +9,11 @@
 
   roles:
     - role: airtonix.provisioning/system/base
+    - role: airtonix.provisioning/system/python
+    - role: airtonix.provisioning/system/docker
     - role: airtonix.provisioning/server/traefik
+      tags: traefik
+    - role: airtonix.provisioning/server/portainer
+      tags: portainer
     - role: airtonix.provisioning/server/nodered
-    - role: airtonix.provisioning/server/homeassistant
+      tags: nodered

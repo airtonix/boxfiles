@@ -1,26 +1,14 @@
 ---
-- name: Traefik Config Store
-  ansible.builtin.file:
-    path: /yacht/AppData/Config/Traefik/config
-    state: directory
-    mode: '0755'
+- name: Create Traefik Network
+  docker_network:
+    name: traefik_proxy
+    state: present
+    internal: false
 
 - name: Traefik Unitfile
   include_role:
-    name: kibatic.docker-systemd
+    name: airtonix.systemd/dockercompose
   vars:
-    systemd_units:
-      - name: traefik
-        restart_unit: true
-        host_copy: []
-        image: traefik:v2.5
-        ports:
-          - '80:80'
-          - '8080:8080'
-        labels:
-          - 'traefik.http.routers.traefik-ui-router.service=traefik-ui-service'
-          - 'traefik.http.routers.traefik-ui-router.rule=Host(`traefik.home.lan`)'
-          - 'traefik.http.services.traefik-ui-service.loadbalancer.server.port=8080'
-        volumes:
-          - '/var/run/docker.sock:/var/run/docker.sock:rw'
-        command: --api.insecure=true --providers.docker
+    app_name: traefik-compose-service
+    compose_source: files/
+    compose_workdir: /src/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/Traefik

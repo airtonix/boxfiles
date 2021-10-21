@@ -5,4 +5,4 @@
   vars:
     app_name: nodered-compose-service
     compose_source: files/
-    compose_workdir: /src/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/NodeRed
+    compose_workdir: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/NodeRed

@@ -1,0 +1,17 @@
+version: "3.3"
+
+services:
+  youtube-dl:
+    image: "kmb32123/youtube-dl-server"
+    volumes:
+      - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/store/torrents/YoutubeDL/:/youtube-dl
+    restart: always
+    labels:
+      traefik.http.routers.youtubedl-ui-router.service: youtubedl-ui-service
+      traefik.http.routers.youtubedl-ui-router.rule: Host(`youtubedl.home.lan`)
+      traefik.http.services.youtubedl-ui-service.loadbalancer.server.port: 8080
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

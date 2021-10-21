@@ -12,14 +12,16 @@
     - role: airtonix.provisioning/system/python
     - role: airtonix.provisioning/system/docker
     - role: airtonix.provisioning/server/homer
-      tags: homer
+      tags: [stacks, homer]
     - role: airtonix.provisioning/server/traefik
-      tags: traefik
+      tags: [stacks, traefik]
     - role: airtonix.provisioning/server/portainer
-      tags: portainer
+      tags: [stacks, portainer]
     - role: airtonix.provisioning/server/nodered
-      tags: nodered
+      tags: [stacks, nodered]
     - role: airtonix.provisioning/server/homeassistant
-      tags: homeassistant
+      tags: [stacks, homeassistant]
     - role: airtonix.provisioning/server/youtube-dl
-      tags: youtube-dl
+      tags: [stacks, youtube-dl]
+    - role: airtonix.provisioning/server/debrid
+      tags: [stacks, debrid]

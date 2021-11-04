@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  codeserver:
+    image: codercom/code-server:latest
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.codeserver-ui-router.service: codeserver-ui-service
+      traefik.http.routers.codeserver-ui-router.rule: Host(`codeserver.home.lan`)
+      traefik.http.services.codeserver-ui-service.loadbalancer.server.port: 6500
+    volumes:
+      - debrid:/home/coder/projects/debrid
+      - nodered:/home/coder/projects/nodered
+
+volumes:
+  debrid:
+    external:
+      name: debrid_service_data_volume
+  nodered:
+    external:
+      name: nodered_service_data_volume
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

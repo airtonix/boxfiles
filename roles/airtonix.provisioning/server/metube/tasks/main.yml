@@ -1,0 +1,14 @@
+---
+- name: MeTube Download Store
+  ansible.builtin.file:
+    path: /srv/dev-disk-by-uuid-4b14b187-df1a-4a61-90ad-bdb3e28eaae5/Docker/torrents/MeTube
+    state: directory
+    mode: '0755'
+
+- name: MeTube Unitfile
+  include_role:
+    name: airtonix.systemd/dockercompose
+  vars:
+    app_name: metube-compose-service
+    compose_source: files/
+    compose_workdir: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/MeTube

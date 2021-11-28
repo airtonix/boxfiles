@@ -26,3 +26,8 @@ Fork this repo, make your changes to `./playbooks/workstation-*.yml`
 
 1. ensure `inventory/home-server.yaml` talks about servers you care about
 2. run `poetry run poe provision-omv`
+
+#### To deploy only parts of the server
+
+1. pick `tags` from `inventory/home-server.yaml`.
+2. run `poetry run poe provision-omv --tags [tag, tag, tag]` (yes the square brackets are required for more than one tag)

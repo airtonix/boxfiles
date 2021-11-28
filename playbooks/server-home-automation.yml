@@ -29,3 +29,5 @@
       tags: [stacks, codeserver]
     - role: airtonix.provisioning/server/metube
       tags: [stacks, metube]
+    - role: airtonix.provisioning/server/jellyfin
+      tags: [stacks, jellyfin]

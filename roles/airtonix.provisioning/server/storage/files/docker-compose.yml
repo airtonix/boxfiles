@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+  samba:
+    image: dperson/samba
+    restart: unless-stopped
+    command: |
+      -n
+      -s "torrents;/mnt/torrents;yes;no;yes"
+      -s "movies;/mnt/movies;yes;no;yes"
+      -s "tv;/mnt/tv;yes;no;yes"
+      -s "books;/mnt/books;yes;no;yes"
+      -s "audiobooks;/mnt/audiobooks;yes;no;yes"
+      -s "reference;/mnt/reference;yes;no;yes"
+      -s "homes;/mnt/homes;yes;no;yes"
+
+    expose:
+      - 139
+      - 445
+
+    volumes:
+      - torrents:/mnt/torrents
+      - movies:/mnt/movies
+      - tv:/mnt/tv
+      - books:/mnt/books
+      - audiobooks:/mnt/audiobooks
+      - reference:/mnt/reference
+      - homes:/mnt/homes
+
+    labels:
+      traefik.udp.routers.samba-router.rule: Host(`samba.home.lan`)
+      traefik.udp.routers.samba-router.service: samba-service
+      traefik.udp.services.samba-service.loadbalancer.server.port: 139
+      traefik.tcp.routers.samba-router.rule: Host(`samba.home.lan`)
+      traefik.tcp.routers.samba-router.service: samba-service
+      traefik.tcp.services.samba-service.loadbalancer.server.port: 445
+
+volumes:
+  torrents:
+  movies:
+  tv:
+  books:
+  audiobooks:
+  reference:
+  homes:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

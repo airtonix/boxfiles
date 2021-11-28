@@ -2,23 +2,54 @@ version: "3.3"
 
 services:
   codeserver:
-    image: codercom/code-server:latest
+    image: lscr.io/linuxserver/code-server
     restart: unless-stopped
+    expose:
+      - 8443
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Adelaide
+      # - PASSWORD=password #optional
+      - SUDO_PASSWORD=password #optional
+      - PROXY_DOMAIN=codeserver.home.lan #optional
     labels:
       traefik.http.routers.codeserver-ui-router.service: codeserver-ui-service
       traefik.http.routers.codeserver-ui-router.rule: Host(`codeserver.home.lan`)
-      traefik.http.services.codeserver-ui-service.loadbalancer.server.port: 6500
+      traefik.http.services.codeserver-ui-service.loadbalancer.server.port: 8443
     volumes:
-      - debrid:/home/coder/projects/debrid
-      - nodered:/home/coder/projects/nodered
+      - codeserver_service_data_volume:/config
+      - homeassistant_data:/home/coder/projects/homeassistant
+      - debrid_data:/home/coder/projects/debrid
+      - nodered_data:/home/coder/projects/nodered
+      # - jellyfin_data:/home/coder/projects/jellyfin
+      - portainer_data:/home/coder/projects/portainer
+      - homer_data:/home/coder/projects/homer
+      - traefik_data:/home/coder/projects/traefik
 
 volumes:
-  debrid:
+  codeserver_service_data_volume:
+  debrid_data:
     external:
-      name: debrid_service_data_volume
-  nodered:
+      name: debrid_debrid_service_data_volume
+  nodered_data:
     external:
-      name: nodered_service_data_volume
+      name: nodered_nodered_service_data_volume
+  homeassistant_data:
+    external:
+      name: homeassistant_homeassistant_service_data_volume
+  # jellyfin_data:
+  #   external:
+  #     name: jellyfin_jellyfin_service_data_volume
+  portainer_data:
+    external:
+      name: portainer_portainer_service_data_volume
+  homer_data:
+    external:
+      name: homer_homer_service_data_volume
+  traefik_data:
+    external:
+      name: traefik_traefik_service_data_volume
 
 networks:
   default:

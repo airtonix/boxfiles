@@ -21,8 +21,6 @@
       tags: [stacks, nodered]
     - role: airtonix.provisioning/server/homeassistant
       tags: [stacks, homeassistant]
-    - role: airtonix.provisioning/server/youtube-dl
-      tags: [stacks, youtubedl]
     - role: airtonix.provisioning/server/debrid
       tags: [stacks, debrid]
     - role: airtonix.provisioning/server/codeserver
@@ -31,3 +29,5 @@
       tags: [stacks, metube]
     - role: airtonix.provisioning/server/jellyfin
       tags: [stacks, jellyfin]
+    - role: airtonix.provisioning/server/storage
+      tags: [stacks, storage]

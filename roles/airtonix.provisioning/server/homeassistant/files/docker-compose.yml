@@ -1,68 +1,71 @@
-version: "3.3"
+version: "3.8"
 
 services:
   homeassistant:
-    image: linuxserver/homeassistant:latest
-    network: host
-    ports:
-      - "8123:8123"
-    env:
+    image: lscr.io/linuxserver/homeassistant:latest
+    environment:
+      PUID: 1000
+      PGID: 1000
       TZ: Australia/Adelaide
     volumes:
       - homeassistant_service_data_volume:/config
     labels:
-      traefik.http.routers.home-assistant-router.rule: Host(\`assistant.home.lan\`)
-      traefik.http.services.home-assistant-service.loadbalancer.server.port: 8123
+      traefik.http.routers.home-assistant-router.rule: Host(`assistant.home.lan`)
       traefik.http.routers.home-assistant-router.service: home-assistant-service
+      traefik.http.services.home-assistant-service.loadbalancer.server.port: 8123
+      # the middleware 'add-context' must be defined so that the regex rules can be attached to it
+      # traefik.http.routers.home-assistant-router.middlewares: "home-assistant-redirect-middleware"
+      # traefik.http.middlewares.home-assistant-redirect-middleware.redirectregex.regex: "^http?:\\/\\/([^\\/]+)\\/?$$"
+      # traefik.http.middlewares.home-assistant-redirect-middleware.redirectregex.replacement: "http://$$1/xyz"
 
-  homeassistant-mosquitto:
-    image: eclipse-mosquitto:2.0.12
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    env:
-      TZ: Australia/Adelaide
-      PGID: 1000
-      PUID: 1000
-      UMASK_SET: 000
-    volumes:
-      - homeassistant_mqtt_service_config_volume:/mosquitto/config"
-      - homeassistant_mqtt_service_data_volume:/mosquitto/data"
-      - homeassistant_mqtt_service_log_volume:/mosquitto/log"
-    labels:
-      traefik.http.routers.home-assistant-mqtt-router.rule: Host(\`assistant-mqtt.home.lan\`)
-      traefik.http.services.home-assistant-mqtt-service.loadbalancer.server.port: 1883
-      traefik.http.routers.home-assistant-mqtt-router.service: home-assistant-mqtt-service
+  # homeassistant-mosquitto:
+  #   image: eclipse-mosquitto:2.0.12
+  #   expose:
+  #     - "1883"
+  #     - "9001"
+  #   environment:
+  #     TZ: Australia/Adelaide
+  #     PGID: 1000
+  #     PUID: 1000
+  #     UMASK_SET: 000
+  #   volumes:
+  #     - homeassistant_mqtt_service_config_volume:/mosquitto/config"
+  #     - homeassistant_mqtt_service_data_volume:/mosquitto/data"
+  #     - homeassistant_mqtt_service_log_volume:/mosquitto/log"
+  #   labels:
+  #     traefik.http.routers.home-assistant-mqtt-router.rule: Host(`assistant-mqtt.home.lan`)
+  #     traefik.http.services.home-assistant-mqtt-service.loadbalancer.server.port: 1883
+  #     traefik.http.routers.home-assistant-mqtt-router.service: home-assistant-mqtt-service
 
-  homeassistant-zwavejs2mqtt:
-    image: "zwavejs/zwavejs2mqtt@sha256:b1215c9376c589957d318686040b7b51f372ea13599b42ae05cff1a8d4538f5a"
-    ports:
-      - "8091:8091"
-      - "3000:3000"
-    restart: always
-    tty: true
-    stop_signal: SIGINT
-    env:
-      TZ: Australia/Adelaide
-      PGID: 1000
-      PUID: 1000
-      UMASK_SET: 000
-    volumes:
-      - homeassistant_zwave_service_data_volume:/usr/src/app/store
-    labels:
-      traefik.http.routers.home-assistant-zwave-api-router.rule: Host(\`assistant-zwave-api.home.lan\`)
-      traefik.http.routers.home-assistant-zwave-api-router.service: home-assistant-zwave-api-service
-      traefik.http.services.home-assistant-zwave-api-service.loadbalancer.server.port: 3000
-      traefik.http.routers.home-assistant-zwave-ui-router.rule: Host(\`assistant-zwave.home.lan\`)
-      traefik.http.routers.home-assistant-zwave-ui-router.service: home-assistant-zwave-ui-service
-      traefik.http.services.home-assistant-zwave-ui-service.loadbalancer.server.port: 8091
+  # homeassistant-zwavejs2mqtt:
+    # image: "zwavejs/zwavejs2mqtt@sha256:b1215c9376c589957d318686040b7b51f372ea13599b42ae05cff1a8d4538f5a"
+    # expose:
+    #   - "8091"
+    #   - "3000"
+    # restart: always
+    # tty: true
+    # stop_signal: SIGINT
+    # environment:
+    #   TZ: Australia/Adelaide
+    #   PGID: 1000
+    #   PUID: 1000
+    #   UMASK_SET: 000
+    # volumes:
+    #   - homeassistant_zwave_service_data_volume:/usr/src/app/store
+    # labels:
+    #   traefik.http.routers.home-assistant-zwave-api-router.rule: Host(`assistant-zwave-api.home.lan`)
+    #   traefik.http.routers.home-assistant-zwave-api-router.service: home-assistant-zwave-api-service
+    #   traefik.http.services.home-assistant-zwave-api-service.loadbalancer.server.port: 3000
+    #   traefik.http.routers.home-assistant-zwave-ui-router.rule: Host(`assistant-zwave.home.lan`)
+    #   traefik.http.routers.home-assistant-zwave-ui-router.service: home-assistant-zwave-ui-service
+    #   traefik.http.services.home-assistant-zwave-ui-service.loadbalancer.server.port: 8091
 
 volumes:
   homeassistant_service_data_volume:
-  homeassistant_zwave_service_data_volume:
-  homeassistant_mqtt_service_config_volume:
-  homeassistant_mqtt_service_data_volume:
-  homeassistant_mqtt_service_log_volume:
+  # homeassistant_zwave_service_data_volume:
+  # homeassistant_mqtt_service_config_volume:
+  # homeassistant_mqtt_service_data_volume:
+  # homeassistant_mqtt_service_log_volume:
 
 networks:
   default:

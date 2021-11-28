@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Adelaide
+    expose:
+      - 8989
+    volumes:
+      - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/store/Videos/:/store/Videos
+      - sonarr_service_config_volume:/config
+    labels:
+      traefik.http.routers.sonarr-router.service: sonarr-service
+      traefik.http.routers.sonarr-router.rule: Host(`sonarr.home.lan`)
+      traefik.http.services.sonarr-service.loadbalancer.server.port: 8989
+
+volumes:
+  sonarr_service_config_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

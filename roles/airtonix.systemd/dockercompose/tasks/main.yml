@@ -26,7 +26,13 @@
   with_dict: "{{ compose_vars }}"
   # no_log: true
 
-- name: "{{ app_name }} Log into"
+- name: "{{ app_name }} Creating external volumes"
+  community.docker.docker_volume:
+    name: "{{ item }}"
+  with_items: "{{ create_external_volumes }}"
+  when: create_external_volumes is defined and create_external_volumes|length>0
+
+- name: "{{ app_name }} Log into docker registry"
   community.docker.docker_login:
     username: "{{ docker_registry_username }}"
     password: "{{ docker_registry_password }}"
@@ -42,7 +48,7 @@
     state: present
   register: service_status
 
-- name: "{{ app_name }} Logout from docker"
+- name: "{{ app_name }} Logout from docker registry"
   ansible.builtin.command: docker logout "{{ docker_registry_url }}"
   when: docker_registry_url is defined
   changed_when: false

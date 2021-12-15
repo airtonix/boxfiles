@@ -2,6 +2,8 @@
 app_name: "docker-compose-service"
 compose_workdir: "/compose"
 
+create_external_volumes: []
+
 # Local file containing docker compose service description
 compose_file: null
 

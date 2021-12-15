@@ -42,24 +42,30 @@ colors:
     background-image: "../assets/wallpaper.jpeg"
 
 services:
-  - name: "//GitHub"
-    icon: "fas fa-github"
+  - name: "//Home"
+    icon: "fas fa-home"
     items:
-      - name: "Homer Theme"
-        logo: "assets/tools/walkx.png" # Change github.png to the name of your own custom icon!
-        subtitle: "The official Homer Theme github!"
-        tag: "github"
-        tagstyle: "is-primary" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
-        url: "https://github.com/WalkxCode/Homer-Theme"
+      - name: "Portainer"
+        logo: "assets/tools/portainer.png" # Change github.png to the name of your own custom icon!
+        tag: "docker"
+        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        url: "http://portainer.home.lan"
         target: "_blank"
-
-  - name: "//Reddit"
-    icon: "fas fa-reddit"
-    items:
-      - name: "The original reddit post!"
-        logo: "assets/tools/reddit.png"
-        subtitle: "Yes... this is Homer."
-        tag: "reddit"
-        tagstyle: "is-info"
-        url: "https://www.reddit.com/r/selfhosted/comments/q9e82c/yes_this_is_homer_yes_i_spent_2_hours_customizing/"
+      - name: "Traefik"
+        logo: "assets/tools/traefik.png" # Change github.png to the name of your own custom icon!
+        tag: "docker"
+        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        url: "http://codeserver.home.lan?folder=/home/coder/projects"
+        target: "_blank"
+      - name: "Home Assistant"
+        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        url: "http://assistant.home.lan"
+        target: "_blank"
+      - name: "Codeserver"
+        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        url: "http://codeserver.home.lan?folder=/home/coder/projects"
+        target: "_blank"
+      - name: "Codeserver"
+        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        url: "http://codeserver.home.lan?folder=/home/coder/projects"
         target: "_blank"

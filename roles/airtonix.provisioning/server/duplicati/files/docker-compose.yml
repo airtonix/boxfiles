@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+  codeserver:
+    image: lscr.io/linuxserver/duplicati
+    restart: unless-stopped
+    expose:
+      - 8200
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Adelaide
+    labels:
+      traefik.http.routers.duplicati-ui-router.service: duplicati-ui-service
+      traefik.http.routers.duplicati-ui-router.rule: Host(`backup.home.lan`)
+      traefik.http.services.duplicati-ui-service.loadbalancer.server.port: 8200
+    volumes:
+      - duplicati_service_data_volume:/config
+      - duplicati_service_data_volume:/sources/services/dupicati
+      - codeserver_data:/sources/services/codeserver
+      - homeassistant_data:/sources/services/homeassistant
+      - debrid_data:/sources/services/debrid
+      - nodered_data:/sources/services/nodered
+      - portainer_data:/sources/services/portainer
+
+volumes:
+  duplicati_service_data_volume:
+  debrid_data:
+    external:
+      name: debrid_debrid_service_data_volume
+  nodered_data:
+    external:
+      name: nodered_nodered_service_data_volume
+  homeassistant_data:
+    external:
+      name: homeassistant_homeassistant_service_data_volume
+  # jellyfin_data:
+  #   external:
+  #     name: jellyfin_jellyfin_service_data_volume
+  portainer_data:
+    external:
+      name: portainer_portainer_service_data_volume
+  codeserver_data:
+    external:
+      name: codeserver_codeserver_service_data_volume
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

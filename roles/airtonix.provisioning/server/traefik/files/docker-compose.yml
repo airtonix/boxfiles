@@ -19,6 +19,24 @@ services:
       - --api.insecure=true
       - --providers.docker
 
+
+  traefik-forward-auth:
+    image: thomseddon/traefik-forward-auth:2
+    environment:
+      - PROVIDERS_GOOGLE_CLIENT_ID=your-client-id
+      - PROVIDERS_GOOGLE_CLIENT_SECRET=your-client-secret
+      - SECRET=something-random
+      # INSECURE_COOKIE is required if not using a https entrypoint
+      - INSECURE_COOKIE=true
+      - COOKIE_DOMAIN=home.lan
+      - AUTH_HOST=auth.home.lan
+      - LOG_LEVEL=debug
+    labels:
+      - "traefik.http.routers.traefik-forward-auth.rule=Host(`auth.home.lan`)"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+
 networks:
   default:
     external:

@@ -31,3 +31,7 @@
       tags: [stacks, jellyfin]
     - role: airtonix.provisioning/server/storage
       tags: [stacks, storage]
+    - role: airtonix.provisioning/server/notea
+      tags: [stacks, wiki, notea]
+    - role: airtonix.provisioning/server/duplicati
+      tags: [stacks, backup, duplicati]

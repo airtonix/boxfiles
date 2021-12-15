@@ -4,8 +4,14 @@ services:
   samba:
     image: dperson/samba
     restart: unless-stopped
-    command: |
-      -n
+    environment:
+      TZ: 'Australia/Adelaide'
+      USERID: "1000"
+      GROUPID: "1000"
+    stdin_open: true
+    tty: true
+
+    command: >
       -s "homes;/mnt/homes;yes;no;yes"
       -s "torrents;/mnt/torrents;yes;no;yes"
       -s "movies;/mnt/movies;yes;no;yes"
@@ -14,40 +20,38 @@ services:
       -s "books;/mnt/books;yes;no;yes"
       -s "audiobooks;/mnt/audiobooks;yes;no;yes"
       -s "reference;/mnt/reference;yes;no;yes"
+      -n
+      -w "LAN"
+      -p
+      -g "netbios name = HOME"
+      -g "netbios aliases = HOME"
+      -g "remote announce = 192.168.8.255"
 
-    expose:
-      - 139
-      - 445
-
+    network_mode: host
     volumes:
-      - torrents:/mnt/torrents
-      - movies:/mnt/movies
-      - tv:/mnt/tv
-      - books:/mnt/books
-      - audio:/mnt/audio
-      - audiobooks:/mnt/audiobooks
-      - reference:/mnt/reference
-      - homes:/mnt/homes
-
-    labels:
-      traefik.udp.routers.samba-router.rule: Host(`samba.home.lan`)
-      traefik.udp.routers.samba-router.service: samba-service
-      traefik.udp.services.samba-service.loadbalancer.server.port: 139
-      traefik.tcp.routers.samba-router.rule: Host(`samba.home.lan`)
-      traefik.tcp.routers.samba-router.service: samba-service
-      traefik.tcp.services.samba-service.loadbalancer.server.port: 445
+      - storage_torrents:/mnt/torrents
+      - storage_movies:/mnt/movies
+      - storage_tv:/mnt/tv
+      - storage_books:/mnt/books
+      - storage_audio:/mnt/audio
+      - storage_audiobooks:/mnt/audiobooks
+      - storage_reference:/mnt/reference
+      - storage_homes:/mnt/homes
 
 volumes:
-  torrents:
-  movies:
-  tv:
-  books:
-  audio:
-  audiobooks:
-  reference:
-  homes:
-
-networks:
-  default:
-    external:
-      name: traefik_proxy
+  storage_torrents:
+    external: true
+  storage_movies:
+    external: true
+  storage_tv:
+    external: true
+  storage_books:
+    external: true
+  storage_audio:
+    external: true
+  storage_audiobooks:
+    external: true
+  storage_reference:
+    external: true
+  storage_homes:
+    external: true

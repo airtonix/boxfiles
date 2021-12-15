@@ -4,5 +4,14 @@
     name: airtonix.systemd/dockercompose
   vars:
     app_name: samba-compose-service
+    create_external_volumes:
+      - storage_torrents
+      - storage_movies
+      - storage_tv
+      - storage_books
+      - storage_audio
+      - storage_audiobooks
+      - storage_reference
+      - storage_homes
     compose_source: files/
     compose_workdir: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/Samba

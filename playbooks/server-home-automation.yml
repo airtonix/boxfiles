@@ -11,27 +11,29 @@
     - role: airtonix.provisioning/system/base
     - role: airtonix.provisioning/system/python
     - role: airtonix.provisioning/system/docker
-    - role: airtonix.provisioning/server/homer
-      tags: [stacks, homer]
-    - role: airtonix.provisioning/server/traefik
-      tags: [stacks, traefik]
-    - role: airtonix.provisioning/server/portainer
-      tags: [stacks, portainer]
-    - role: airtonix.provisioning/server/nodered
-      tags: [stacks, nodered]
-    - role: airtonix.provisioning/server/homeassistant
-      tags: [stacks, homeassistant]
-    - role: airtonix.provisioning/server/debrid
-      tags: [stacks, debrid]
-    - role: airtonix.provisioning/server/codeserver
-      tags: [stacks, codeserver]
-    - role: airtonix.provisioning/server/metube
-      tags: [stacks, metube]
-    - role: airtonix.provisioning/server/jellyfin
-      tags: [stacks, jellyfin]
+      variables:
+        docker_storage_root: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/docker
     - role: airtonix.provisioning/server/storage
-      tags: [stacks, storage]
-    - role: airtonix.provisioning/server/notea
-      tags: [stacks, wiki, notea]
-    - role: airtonix.provisioning/server/duplicati
-      tags: [stacks, backup, duplicati]
+      tags: [stacks, storage, samba]
+    # - role: airtonix.provisioning/server/homer
+    #   tags: [stacks, homer, dashboard]
+    # - role: airtonix.provisioning/server/traefik
+    #   tags: [stacks, traefik]
+    # - role: airtonix.provisioning/server/portainer
+    #   tags: [stacks, portainer]
+    # - role: airtonix.provisioning/server/nodered
+    #   tags: [stacks, nodered]
+    # - role: airtonix.provisioning/server/homeassistant
+    #   tags: [stacks, homeassistant]
+    # - role: airtonix.provisioning/server/debrid
+    #   tags: [stacks, debrid]
+    # - role: airtonix.provisioning/server/codeserver
+    #   tags: [stacks, codeserver]
+    # - role: airtonix.provisioning/server/metube
+    #   tags: [stacks, metube]
+    # - role: airtonix.provisioning/server/jellyfin
+    #   tags: [stacks, jellyfin]
+    # - role: airtonix.provisioning/server/notea
+    #   tags: [stacks, wiki, notea]
+    # - role: airtonix.provisioning/server/duplicati
+    #   tags: [stacks, backup, duplicati]

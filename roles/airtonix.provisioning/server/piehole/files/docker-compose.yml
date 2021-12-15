@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  piehole:
+    restart: always
+    image: pihole/pihole:v5.9_amd64
+    network_mode: host
+    environment:
+        TZ: Australia/Adelaide
+    labels:
+      traefik.http.routers.piehole-ui-router.service: piehole-ui-service
+      traefik.http.routers.piehole-ui-router.rule: Host(`piehole.home.lan`)
+      traefik.http.services.piehole-ui-service.loadbalancer.server.port: 80
+    volumes:
+      - piehole_service_data_volume:/etc/dnsmasq.d
+      - piehole_service_config_volume:/etc/pihole
+
+volumes:
+  piehole_service_data_volume:
+  piehole_service_config_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

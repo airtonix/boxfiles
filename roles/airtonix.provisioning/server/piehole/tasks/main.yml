@@ -1,36 +1,8 @@
 ---
-- name: PieHole Config Store
-  ansible.builtin.file:
-    path: '{{ item }}'
-    state: directory
-    mode: '0755'
-  loop:
-    - /yacht/AppData/Config/PieHole
-    - /yacht/AppData/Config/PieHole/DNS
-
 - name: PieHole Unitfile
   include_role:
-    name: kibatic.docker-systemd
+    name: airtonix.systemd/dockercompose
   vars:
-    systemd_units:
-      - name: PieHole
-        restart_unit: true
-        host_copy: []
-        image: pihole/pihole:v5.9_amd64
-        network: host
-        ports:
-          - '4443:4443'
-          - '4440:80'
-          - "53:53/tcp"
-          - "53:53/udp"
-          - "67:67/udp"
-        env:
-          TZ: Australia/Adelaide
-          WEBPASSWORD: password
-        volumes:
-          - '/yacht/AppData/Config/PiHole/DNS:/etc/dnsmasq.d'
-          - '/yacht/AppData/Config/PiHole:/etc/pihole'
-        labels:
-          - 'traefik.http.routers.pihole-ui-router.rule=Host(\`piehole.home.lan\`)'
-          - 'traefik.http.routers.pihole-ui-router.service=pihole-ui-service'
-          - 'traefik.http.services.pihole-ui-service.loadbalancer.server.port=80'
+    app_name: piehole-compose-service
+    compose_source: files/
+    compose_workdir: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/PieHole

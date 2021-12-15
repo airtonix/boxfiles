@@ -1,0 +1,12 @@
+---
+- name: create docker config
+  ansible.builtin.copy:
+    owner: root
+    group: root
+    dest: /etc/docker/daemon.conf
+    backup: true
+    mode: 0600
+    content: |
+        {
+            "data-root": "{{ docker_storage_root }}"
+        }

@@ -2,3 +2,5 @@
 - name: 'install with ({{ ansible_pkg_mgr }})'
   include_tasks: 'install-with-{{ ansible_pkg_mgr }}.yml'
   when: (role_path, '/tasks/install-with-', ansible_pkg_mgr, '.yml') | join('') is file
+- name: 'configure docker storage'
+  include_tasks: 'configure-docker.yml'

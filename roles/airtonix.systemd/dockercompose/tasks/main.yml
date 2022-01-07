@@ -1,9 +1,4 @@
 ---
-- name: "{{ app_name }} Clean Context"
-  ansible.builtin.file:
-    path: "{{ compose_workdir }}"
-    state: absent
-
 - name: "{{ app_name }} Create Workdir"
   ansible.builtin.file:
     path: '{{ compose_workdir }}'

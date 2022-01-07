@@ -9,6 +9,7 @@ provision-omv = """
 ansible-playbook
     --verbose
     --ask-become-pass
+    --ask-vault-pass
     --inventory-file=./inventory/home-server.yaml
     ./playbooks/server-home-automation.yml
 """

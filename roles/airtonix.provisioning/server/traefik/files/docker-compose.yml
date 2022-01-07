@@ -16,6 +16,9 @@ services:
       - --log.level=INFO
       - --api.insecure=true
       - --providers.docker
+    networks:
+      default:
+        ipv4_address: 172.22.0.254
 
   traefik-forward-auth:
     image: thomseddon/traefik-forward-auth:2

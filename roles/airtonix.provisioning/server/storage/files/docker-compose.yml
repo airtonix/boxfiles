@@ -55,70 +55,94 @@ services:
         read only = no;
         browseable = yes;
         public = yes;
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_movies: >
         [Movies];
         path=/mnt/movies;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
         public = yes;
-        write list = "zenobius"
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_tv: >
         [TV];
         path=/mnt/tv;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
         public = yes;
-        write list = "zenobius"
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_audio: >
         [Audio];
         path=/mnt/audio;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
         public = yes;
-        write list = "zenobius"
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_books: >
         [Books];
         path=/mnt/books;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
-        public = no;
-        write list = "zenobius"
+        public = yes;
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_audiobooks: >
         [Audiobooks];
         path=/mnt/audiobooks;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
         public = yes;
-        valid users = "zenobius";
-        write list = "zenobius"
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_reference: >
         [Reference];
         path=/mnt/reference;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
         public = yes;
-        write list = "zenobius"
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
       SAMBA_VOLUME_CONFIG_pictures: >
         [Pictures];
         path=/mnt/pictures;
         guest ok = yes;
-        read only = yes;
+        read only = no;
         browseable = yes;
         public = yes;
-        write list = "zenobius"
+        create mask = 0664;
+        force create mode = 0664;
+        directory mask = 02775;
+        force directory mode = 02775
 
     volumes:
       - storage_homes:/mnt/homes:z

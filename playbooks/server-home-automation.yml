@@ -38,4 +38,10 @@
     - role: airtonix.provisioning/server/calibre
       tags: [stacks, calibre, books]
     - role: airtonix.provisioning/server/mylar
-      tags: [stacks, mylar, books, comics]
+      tags: [stacks, downloading, mylar, books, comics]
+    - role: airtonix.provisioning/server/lazylibrarian
+      tags: [stacks, downloading, books, lazylibrarian]
+    - role: airtonix.provisioning/server/readarr
+      tags: [stacks, downloading, books, readarr]
+    - role: airtonix.provisioning/server/jackett
+      tags: [stacks, downloading, jackett]

@@ -10,22 +10,23 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Australia/Adelaide
-      # - PASSWORD=password #optional
       - SUDO_PASSWORD=password #optional
       - PROXY_DOMAIN=codeserver.home.lan #optional
       - DEFAULT_WORKSPACE=/home/coder/projects
+      - DOCKER_MODS=linuxserver/mods:code-server-docker
     labels:
       traefik.http.routers.codeserver-ui-router.service: codeserver-ui-service
       traefik.http.routers.codeserver-ui-router.rule: Host(`codeserver.home.lan`)
       traefik.http.services.codeserver-ui-service.loadbalancer.server.port: 8443
     volumes:
       - codeserver_service_data_volume:/config
-      - homeassistant_data:/home/coder/projects/homeassistant
       - debrid_data:/home/coder/projects/debrid
       - nodered_data:/home/coder/projects/nodered
       - jellyfin_data:/home/coder/projects/jellyfin
       - portainer_data:/home/coder/projects/portainer
       - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/Homer/assets:/home/coder/projects/homer
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+
 
 volumes:
   codeserver_service_data_volume:
@@ -35,9 +36,6 @@ volumes:
   nodered_data:
     external:
       name: nodered_nodered_service_data_volume
-  homeassistant_data:
-    external:
-      name: homeassistant_homeassistant_service_data_volume
   portainer_data:
     external:
       name: portainer_portainer_service_data_volume

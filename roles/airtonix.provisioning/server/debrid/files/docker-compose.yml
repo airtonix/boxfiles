@@ -4,16 +4,20 @@ services:
   debrid:
     image: rogerfar/rdtclient:1.7.8
     restart: unless-stopped
+    ports:
+      - '6500:6500'
+    volumes:
+      - storage_downloads:/data/downloads
+      - debrid_service_data_volume:/data/db
     labels:
       traefik.http.routers.debrid-ui-router.service: debrid-ui-service
       traefik.http.routers.debrid-ui-router.rule: Host(`debrid.home.lan`)
       traefik.http.services.debrid-ui-service.loadbalancer.server.port: 6500
-    volumes:
-      - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/store/torrents/incoming:/data/downloads
-      - debrid_service_data_volume:/data/db
 
 volumes:
   debrid_service_data_volume:
+  storage_downloads:
+    external: true
 
 networks:
   default:

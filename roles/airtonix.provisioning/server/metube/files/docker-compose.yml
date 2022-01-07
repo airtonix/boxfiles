@@ -7,11 +7,15 @@ services:
     expose:
       - 8081
     volumes:
-      - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/store/torrents/YoutubeDL/:/downloads
+      - storage_downloads:/downloads
     labels:
       traefik.http.routers.metube-router.service: metube-service
       traefik.http.routers.metube-router.rule: Host(`metube.home.lan`)
       traefik.http.services.metube-service.loadbalancer.server.port: 8081
+
+volumes:
+  storage_downloads:
+    external: true
 
 networks:
   default:

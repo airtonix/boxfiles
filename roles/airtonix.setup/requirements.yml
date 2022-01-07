@@ -14,3 +14,6 @@ collections:
   - community.general
   - community.docker
   - community.general.github_release
+
+dependencies:
+  - linux-system-roles.cockpit

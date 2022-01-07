@@ -1,5 +1,5 @@
 all:
     hosts:
-        openmediavault.lan:
+        openmediavault.local:
             ansible_ssh_private_key_file: /home/zenobius/.ssh/id_rsa-openmediavault-lan
             ansible_user: zenobius

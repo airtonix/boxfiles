@@ -1,0 +1,87 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+
+homeassistant:
+  customize: !include customize.yaml
+
+http:
+    use_x_forwarded_for: true
+    trusted_proxies:
+        - 172.22.0.254
+
+sensor:
+  - platform: fronius
+    resource: http://fronius.lan
+    monitored_conditions:
+    - sensor_type: logger_info
+    - sensor_type: inverter
+      scope: system
+      device: 200
+    - sensor_type: meter
+      device: 1
+
+modbus:
+  - type: tcp
+    host: fronius.lan
+    port: 502
+    name: fronius
+
+# modbus:
+#   - type: tcp
+#     host: fronius.lan
+#     port: 502
+#     name: fronius1
+#     sensors:
+#       - name: reading_energy_main_meter
+#         slave: 200
+#         scan_interval: 2
+#         count: 2
+#         address: 40097
+#         data_type: float
+#         unit_of_measurement: W
+#       - name: reading_energy_inverter_ac_output
+#         unit_of_measurement: W
+#         slave: 1
+#         count: 2
+#         data_type: float
+#         address: 40091
+#         scan_interval: 2
+#       - name: reading_inverter_multiple_raw
+#         slave: 1
+#         count: 88
+#         address: 40265
+#         scan_interval: 2
+#         data_type: custom
+#         # Registers and positions in custom structure
+#         # 0  DCA_SF
+#         # 1  DCV_SF
+#         # 2. DCW_SF DC Energy scaling factor
+#         # 3. DCWH_SF
+#         # 4  1_ID
+#         # 5  1_DCA
+#         # 6. 1_DCV
+#         # 7. 1_DCW Energy string 1
+#         # 8  2_ID
+#         # 9. 2_DCA
+#         # 10 2_DCV
+#         # 11 2_DCW Energy string 2
+#         # 12 3_ID
+#         # 13 3_DCA
+#         # 14 3_DCV
+#         # 15 3_DCW Energy to battery, charging
+#         # 16 4_ID
+#         # 17 4_DCA
+#         # 18 4_DCV
+#         # 19 4_DCW Energy from battery, discharging
+#         structure: ">hhhh8x H16xHHH16x H16xHHH16x H16xHHH16x H16xHHH16x"

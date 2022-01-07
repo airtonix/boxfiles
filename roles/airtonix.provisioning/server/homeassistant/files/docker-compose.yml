@@ -9,7 +9,14 @@ services:
       PGID: 100
       TZ: Australia/Adelaide
     volumes:
-      - homeassistant_service_data_volume:/config
+      - './config/blueprints/:/config/blueprints/'
+      - './config/automations.yaml:/config/automations.yaml'
+      - './config/configuration.yaml:/config/configuration.yaml'
+      - './config/customize.yaml:/config/customize.yaml'
+      - './config/groups.yaml:/config/groups.yaml'
+      - './config/scenes.yaml:/config/scenes.yaml'
+      - './config/scripts.yaml:/config/scripts.yaml'
+      - './config/secrets.yaml:/config/secrets.yaml'
     labels:
       traefik.http.routers.home-assistant-router.rule: Host(`assistant.home.lan`)
       traefik.http.routers.home-assistant-router.service: home-assistant-service
@@ -60,13 +67,6 @@ services:
     #   traefik.http.routers.home-assistant-zwave-ui-router.rule: Host(`assistant-zwave.home.lan`)
     #   traefik.http.routers.home-assistant-zwave-ui-router.service: home-assistant-zwave-ui-service
     #   traefik.http.services.home-assistant-zwave-ui-service.loadbalancer.server.port: 8091
-
-volumes:
-  homeassistant_service_data_volume:
-  # homeassistant_zwave_service_data_volume:
-  # homeassistant_mqtt_service_config_volume:
-  # homeassistant_mqtt_service_data_volume:
-  # homeassistant_mqtt_service_log_volume:
 
 networks:
   default:

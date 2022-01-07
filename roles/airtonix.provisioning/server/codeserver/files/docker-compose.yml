@@ -13,6 +13,7 @@ services:
       # - PASSWORD=password #optional
       - SUDO_PASSWORD=password #optional
       - PROXY_DOMAIN=codeserver.home.lan #optional
+      - DEFAULT_WORKSPACE=/home/coder/projects
     labels:
       traefik.http.routers.codeserver-ui-router.service: codeserver-ui-service
       traefik.http.routers.codeserver-ui-router.rule: Host(`codeserver.home.lan`)
@@ -22,10 +23,9 @@ services:
       - homeassistant_data:/home/coder/projects/homeassistant
       - debrid_data:/home/coder/projects/debrid
       - nodered_data:/home/coder/projects/nodered
-      # - jellyfin_data:/home/coder/projects/jellyfin
+      - jellyfin_data:/home/coder/projects/jellyfin
       - portainer_data:/home/coder/projects/portainer
-      - homer_data:/home/coder/projects/homer
-      - traefik_data:/home/coder/projects/traefik
+      - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/Homer/assets:/home/coder/projects/homer
 
 volumes:
   codeserver_service_data_volume:
@@ -38,18 +38,12 @@ volumes:
   homeassistant_data:
     external:
       name: homeassistant_homeassistant_service_data_volume
-  # jellyfin_data:
-  #   external:
-  #     name: jellyfin_jellyfin_service_data_volume
   portainer_data:
     external:
       name: portainer_portainer_service_data_volume
-  homer_data:
+  jellyfin_data:
     external:
-      name: homer_homer_service_data_volume
-  traefik_data:
-    external:
-      name: traefik_traefik_service_data_volume
+      name: jellyfin_jellfin_service_config_volume
 
 networks:
   default:

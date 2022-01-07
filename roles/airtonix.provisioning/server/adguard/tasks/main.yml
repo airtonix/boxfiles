@@ -1,0 +1,37 @@
+---
+# - name: Deactivate DNSStubListener
+#   ansible.builtin.copy:
+#     mode: 0600
+#     dest: /etc/systemd/resolved.conf.d/adguardhome.conf
+#     content: |
+#       [Resolve]
+#       DNS=127.0.0.1
+#       DNSStubListener=no
+
+# - name: Test if /etc/resolv.conf exists
+#   stat: path=/etc/resolv.conf
+#   register: etc_resolv_conf_state
+
+# - name: Move /etc/resolv.conf
+#   command: mv /etc/resolv.conf /etc/resolv.conf.backup
+#   when: etc_resolv_conf_state.stat.exists
+
+# - name: Symlink new root SystemdResolveD config
+#   ansible.builtin.file:
+#     state: link
+#     src: /run/systemd/resolve/resolv.conf
+#     dest: /etc/resolv.conf
+
+# - name: "Reload SystemdResolveD"
+#   ansible.builtin.service:
+#     name: "systemd-resolved.service"
+#     enabled: false
+#     state: restarted
+
+- name: ADGuard Unitfile
+  include_role:
+    name: airtonix.systemd/dockercompose
+  vars:
+    app_name: adguard-compose-service
+    compose_source: files/
+    compose_workdir: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/Adguard

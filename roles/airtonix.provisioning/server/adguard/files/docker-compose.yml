@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  adguard:
+    restart: unless-stopped
+    image: adguard/adguardhome
+    ports:
+    - 53:53/tcp
+    - 53:53/udp
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Adelaide
+    labels:
+      traefik.http.routers.piehole-ui-router.service: adguard-ui-service
+      traefik.http.routers.adguard-ui-router.rule: Host(`adguard.home.lan`)
+      traefik.http.services.adguard-ui-service.loadbalancer.server.port: 80
+    volumes:
+      - adguard_service_work_volume:/opt/adguardhome/work
+      - adguard_service_config_volume:/opt/adguardhome/conf
+
+volumes:
+  adguard_service_config_volume:
+  adguard_service_work_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

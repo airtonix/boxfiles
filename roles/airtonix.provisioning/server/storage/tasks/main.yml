@@ -5,7 +5,8 @@
   vars:
     app_name: samba-compose-service
     create_external_volumes:
-      - storage_torrents
+      - storage_downloads
+      - storage_pictures
       - storage_movies
       - storage_tv
       - storage_books

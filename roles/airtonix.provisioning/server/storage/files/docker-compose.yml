@@ -1,45 +1,140 @@
 version: "3.3"
 
 services:
-  samba:
-    image: dperson/samba
+  store:
+    image: servercontainers/samba
     restart: unless-stopped
-    environment:
-      TZ: 'Australia/Adelaide'
-      USERID: "1000"
-      GROUPID: "1000"
+    network_mode: host
     stdin_open: true
     tty: true
+    cap_add:
+     - CAP_NET_ADMIN
+    read_only: false
 
-    command: >
-      -s "homes;/mnt/homes;yes;no;yes"
-      -s "torrents;/mnt/torrents;yes;no;yes"
-      -s "movies;/mnt/movies;yes;no;yes"
-      -s "tv;/mnt/tv;yes;no;yes"
-      -s "audio;/mnt/audio;yes;no;yes"
-      -s "books;/mnt/books;yes;no;yes"
-      -s "audiobooks;/mnt/audiobooks;yes;no;yes"
-      -s "reference;/mnt/reference;yes;no;yes"
-      -n
-      -w "LAN"
-      -p
-      -g "netbios name = HOME"
-      -g "netbios aliases = HOME"
-      -g "remote announce = 192.168.8.255"
+    environment:
+      TZ: Australia/Adelaide
 
-    network_mode: host
+      MODEL: TimeCapsule
+      AVAHI_NAME: samba.home.lan
+      SAMBA_CONF_LOG_LEVEL: 3
+      SAMBA_CONF_WORKGROUP: LAN
+      SAMBA_CONF_SERVER_STRING: Storage Server
+      SAMBA_GLOBAL_CONFIG_hosts_SPACE_allow: 192.168.8.0/24
+      SAMBA_GLOBAL_CONFIG_hosts_SPACE_deny: 0.0.0.0/24
+      SAMBA_GLOBAL_CONFIG_interfaces: 192.168.8.0/24
+      SAMBA_GLOBAL_CONFIG_bind_SPACE_interfaces_SPACE_only: "yes"
+      SAMBA_GLOBAL_CONFIG_os_SPACE_level: 200
+      SAMBA_GLOBAL_CONFIG_preferred_SPACE_master: "yes"
+      SAMBA_GLOBAL_CONFIG_domain_SPACE_master: "yes"
+      SAMBA_GLOBAL_CONFIG_wins_SPACE_support: "yes"
+      SAMBA_GLOBAL_CONFIG_local_SPACE_master: "yes"
+      SAMBA_GLOBAL_CONFIG_netbios_SPACE_name: samba
+      SAMBA_GLOBAL_CONFIG_max_SPACE_client_SPACE_protocol: SMB3_10
+      SAMBA_GLOBAL_CONFIG_min_SPACE_client_SPACE_protocol: NT1
+      SAMBA_GLOBAL_CONFIG_nt_SPACE_pipe_SPACE_support: "yes"
+      SAMBA_GLOBAL_CONFIG_name_SPACE_resolve_SPACE_order: "bcast host lmhosts wins"
+
+      GROUP_family: 1500
+
+      ACCOUNT_zenobius: password
+      UID_zenobius: 1000
+      GROUPS_zenobius: family
+
+      SAMBA_VOLUME_CONFIG_shared_home: >
+        [Home];
+        path=/mnt/homes/%U;
+        valid users = zenobius;
+        guest ok = no;
+        read only = no;
+        browseable = yes;
+
+      SAMBA_VOLUME_CONFIG_downloads: >
+        [Downloads];
+        path=/mnt/downloads;
+        guest ok = yes;
+        read only = no;
+        browseable = yes;
+        public = yes;
+
+      SAMBA_VOLUME_CONFIG_movies: >
+        [Movies];
+        path=/mnt/movies;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = yes;
+        write list = "zenobius"
+
+      SAMBA_VOLUME_CONFIG_tv: >
+        [TV];
+        path=/mnt/tv;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = yes;
+        write list = "zenobius"
+
+      SAMBA_VOLUME_CONFIG_audio: >
+        [Audio];
+        path=/mnt/audio;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = yes;
+        write list = "zenobius"
+
+      SAMBA_VOLUME_CONFIG_books: >
+        [Books];
+        path=/mnt/books;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = no;
+        write list = "zenobius"
+
+      SAMBA_VOLUME_CONFIG_audiobooks: >
+        [Audiobooks];
+        path=/mnt/audiobooks;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = yes;
+        valid users = "zenobius";
+        write list = "zenobius"
+
+      SAMBA_VOLUME_CONFIG_reference: >
+        [Reference];
+        path=/mnt/reference;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = yes;
+        write list = "zenobius"
+
+      SAMBA_VOLUME_CONFIG_pictures: >
+        [Pictures];
+        path=/mnt/pictures;
+        guest ok = yes;
+        read only = yes;
+        browseable = yes;
+        public = yes;
+        write list = "zenobius"
+
     volumes:
-      - storage_torrents:/mnt/torrents
-      - storage_movies:/mnt/movies
-      - storage_tv:/mnt/tv
-      - storage_books:/mnt/books
-      - storage_audio:/mnt/audio
-      - storage_audiobooks:/mnt/audiobooks
-      - storage_reference:/mnt/reference
-      - storage_homes:/mnt/homes
+      - storage_homes:/mnt/homes:z
+      - storage_downloads:/mnt/downloads:z
+      - storage_movies:/mnt/movies:z
+      - storage_tv:/mnt/tv:z
+      - storage_books:/mnt/books:z
+      - storage_audio:/mnt/audio:z
+      - storage_audiobooks:/mnt/audiobooks:z
+      - storage_reference:/mnt/reference:z
+      - storage_pictures:/mnt/pictures:z
 
 volumes:
-  storage_torrents:
+  storage_downloads:
+    external: true
+  storage_pictures:
     external: true
   storage_movies:
     external: true

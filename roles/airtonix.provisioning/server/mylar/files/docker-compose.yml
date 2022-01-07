@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  mylar:
+    image: lscr.io/linuxserver/mylar3
+    environment:
+      - PUID=1000
+      - PGID=100
+      - "TZ=Australia/Adelaide"
+      # - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
+      # - OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
+    volumes:
+      - mylar_service_config_volume:/config
+      - storage_books:/books
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.mylar-ui-router.service: mylar-ui-service
+      traefik.http.routers.mylar-ui-router.rule: Host(`mylar.home.lan`)
+      traefik.http.services.mylar-ui-service.loadbalancer.server.port: 8090
+
+volumes:
+  mylar_service_config_volume:
+  storage_books:
+    external: true
+  storage_downloads:
+    external: true
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

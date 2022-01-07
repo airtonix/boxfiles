@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web
+    environment:
+      - PUID=1000
+      - PGID=100
+      - "TZ=Australia/Adelaide"
+      - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
+    volumes:
+      - calibreweb_service_config_volume:/config
+      - storage_books:/books
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.calibreweb-ui-router.service: calibreweb-ui-service
+      traefik.http.routers.calibreweb-ui-router.rule: Host(`books.home.lan`)
+      traefik.http.services.calibreweb-ui-service.loadbalancer.server.port: 8083
+
+  calibre:
+    image: lscr.io/linuxserver/calibre
+    environment:
+      - PUID=1000
+      - PGID=100
+      - "TZ=Australia/Adelaide"
+      - PASSWORD=password #optional
+      # - CLI_ARGS= #optional
+      # - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
+    volumes:
+      - calibre_service_config_volume:/config
+      - storage_books:/books
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.calibre-router.service: calibre-service
+      traefik.http.routers.calibre-router.rule: Host(`calibre.home.lan`)
+      traefik.http.services.calibre-service.loadbalancer.server.port: 8081
+      traefik.http.routers.calibre-desktop-router.service: calibre-desktop-service
+      traefik.http.routers.calibre-desktop-router.rule: Host(`calibredesktop.home.lan`)
+      traefik.http.services.calibre-desktop-service.loadbalancer.server.port: 8080
+
+volumes:
+  calibre_service_config_volume:
+  calibreweb_service_config_volume:
+  storage_books:
+    external: true
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

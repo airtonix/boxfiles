@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  role_name: mylar
+  license: BSD-3-Clause
+  author: 'me'
+  description: 'stuff'
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Debian
+      versions:
+        - 10
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - linux
+
+dependencies:
+  - role: airtonix.provisioning/apps/docker
+    vars:
+      language: python

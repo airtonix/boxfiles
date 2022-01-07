@@ -1,10 +1,4 @@
 ---
-- name: Homer Download Store
-  ansible.builtin.file:
-    path: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/store/Homer
-    state: directory
-    mode: '0755'
-
 - name: Homer Unitfile
   include_role:
     name: airtonix.systemd/dockercompose

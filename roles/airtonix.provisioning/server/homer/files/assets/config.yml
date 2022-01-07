@@ -1,15 +1,16 @@
 ---
+
 title: "Homer Theme"
 subtitle: "Walkx"
 logo: "logo.png"
 
 header: false
-footer: '<p>Theme made with <span class="has-text-danger">❤️</span> by <a href="https://github.com/WalkxCode">Walkx</a></p>' # Set false if you want to hide it.
+footer: false
 
 stylesheet:
   - "assets/custom.css"
 
-columns: "3" # You can change this to any number that is a factor of 12: (1, 2, 3, 4, 6, 12)
+columns: "5" # You can change this to any number that is a factor of 12: (1, 2, 3, 4, 6, 12)
 theme: default
 colors:
   light:
@@ -25,7 +26,7 @@ colors:
     card-shadow: rgba(0, 0, 0, 0.5)
     link: "#3273dc"
     link-hover: "#2e4053"
-    background-image: "../assets/wallpaper-light.jpeg" # Change wallpaper.jpeg to the name of your own custom wallpaper!
+    background-image: "../assets/wallpapers/wallpaper-light.jpeg" # Change wallpaper.jpeg to the name of your own custom wallpaper!
   dark:
     highlight-primary: "#181C3A"
     highlight-secondary: "#181C3A"
@@ -39,33 +40,75 @@ colors:
     card-shadow: rgba(0, 0, 0, 0.5)
     link: "#c1c1c1"
     link-hover: "#fafafa"
-    background-image: "../assets/wallpaper.jpeg"
+    background-image: "../assets/wallpapers/wallpaper-dark.jpeg"
+
+
+
+
+#
+# Templates
+#
+# services:
+#
+# - name: "//Home.Core"
+#   icon: "fas fa-home"
+#   items:
+#
+# items:
+#
+# - name: "Portainer"
+#   logo: "assets/tools/portainer.png" # Change github.png to the name of your own custom icon!
+#   tag: "docker"
+#   tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+#   url: "http://portainer.home.lan"
+#   target: "_blank"
 
 services:
-  - name: "//Home"
+  - name: "//Home.Core"
     icon: "fas fa-home"
     items:
       - name: "Portainer"
-        logo: "assets/tools/portainer.png" # Change github.png to the name of your own custom icon!
+        logo: "assets/tools/portainer.png"
         tag: "docker"
-        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        tagstyle: "is-link"
         url: "http://portainer.home.lan"
         target: "_blank"
       - name: "Traefik"
-        logo: "assets/tools/traefik.png" # Change github.png to the name of your own custom icon!
+        logo: "assets/tools/traefik.png"
         tag: "docker"
-        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        tagstyle: "is-link"
+        url: "http://traefik.home.lan"
+        target: "_blank"
+      - name: "Codeserver"
+        logo: "assets/tools/vscode.png"
+        tagstyle: "is-link"
         url: "http://codeserver.home.lan?folder=/home/coder/projects"
         target: "_blank"
+      - name: "AdGuard"
+        logo: "assets/tools/1280px-AdGuard.svg.png"
+        tagstyle: "is-link"
+        url: "http://adguard.home.lan/"
+        target: "_blank"
+
+  - name: "//Home.Automation"
+    icon: "fas fa-home"
+    items:
       - name: "Home Assistant"
-        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
+        logo: "assets/tools/homeassistant.png"
+        tagstyle: "is-link"
         url: "http://assistant.home.lan"
         target: "_blank"
-      - name: "Codeserver"
-        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
-        url: "http://codeserver.home.lan?folder=/home/coder/projects"
+      - name: "NodeRed"
+        logo: "assets/tools/nodered.png"
+        tagstyle: "is-link"
+        url: "http://nodered.home.lan"
         target: "_blank"
-      - name: "Codeserver"
-        tagstyle: "is-link" # This will display the is-primary color! Try changing it to; is-link, is-info, is-success, is-warning or is-danger!
-        url: "http://codeserver.home.lan?folder=/home/coder/projects"
+
+  - name: "//Home.Media"
+    icon: "fas fa-home"
+    items:
+      - name: "Debrid"
+        logo: "assets/tools/realdebrid.png"
+        tagstyle: "is-link"
+        url: "http://debrid.home.lan"
         target: "_blank"

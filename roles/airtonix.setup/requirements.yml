@@ -17,3 +17,4 @@ collections:
 
 dependencies:
   - linux-system-roles.cockpit
+  - geerlingguy.mac

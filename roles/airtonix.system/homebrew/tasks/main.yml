@@ -1,0 +1,5 @@
+---
+- name: 'install with ({{ ansible_distribution }})'
+  include: "{{ item }}"
+  with_first_found:
+    - "{{ role_path }}/tasks/install-on-{{ ansible_distribution | lower }}.yml"

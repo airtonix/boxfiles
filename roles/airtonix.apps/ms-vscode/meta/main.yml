@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Zenobius Jiricek
+  role_name: vscode
+  min_ansible_version: 2.9
+  description: installs visual studio code
+  license: BSD-3-Clause
+  galaxy_tags:
+    - fedora
+    - macosx
+    - editor
+  platforms:
+    - name: Macosx
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+  dependencies:
+    - role: gantsign.visual-studio-code

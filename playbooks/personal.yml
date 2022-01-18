@@ -1,0 +1,68 @@
+---
+- name: Fedora Workstation configuration
+  hosts: workstation
+  become: true
+
+  roles:
+    - role: airtonix.system/base
+      tags: ['base', 'system']
+    - role: airtonix.system/python
+      tags: ['python', 'language', 'system']
+    - role: airtonix.system/docker
+      tags: ['docker', 'virtual', 'system']
+    - role: airtonix.system/androiddev
+      tags: ['android', 'dev', 'system']
+    - role: airtonix.system/flatpak
+      tags: ['flatpak', 'packages']
+    - role: airtonix.apps/syncthing
+      tags: ['syncthing', 'sharing', 'desktop', 'apps']
+    - role: airtonix.apps/gsconnect
+      tags: ['gsconnect', 'phone', 'desktop', 'apps']
+    - role: airtonix.apps/docker
+      tags: ['docker', 'virtual', 'apps']
+    - role: airtonix.apps/adb
+      tags: ['android', 'terminal', 'dev', 'apps']
+    - role: airtonix.apps/tusk
+      tags: ['tusk', 'terminal', 'dev', 'apps']
+    - role: airtonix.apps/go-task
+      tags: ['go-task', 'terminal', 'dev', 'apps']
+    - role: airtonix.apps/shellspec
+      tags: ['shellspec', 'terminal', 'dev', 'apps']
+    - role: airtonix.apps/git
+      tags: ['git', 'dev', 'vcs', 'terminal', 'apps']
+    - role: airtonix.apps/mkdkr
+      tags: ['mkdkr', 'dev', 'ci', 'terminal', 'apps']
+    - role: airtonix.apps/zsh
+      tags: ['dev', 'zsh', 'terminal', 'apps']
+    - role: airtonix.apps/pass
+      tags: ['security', 'pass', 'terminal', 'apps']
+    - role: airtonix.apps/ssh
+      tags: ['dev', 'ssh', 'terminal', 'apps']
+    - role: airtonix.apps/sublime-text
+      tags: ['sublime', 'dev', 'ide', 'desktop', 'apps']
+    - role: airtonix.apps/ms-vscode
+      tags: ['vscode', 'dev', 'ide', 'desktop', 'apps']
+    - role: airtonix.apps/firefox
+      tags: ['firefox', 'browser', 'desktop', 'apps']
+    - role: airtonix.apps/chromium
+      tags: ['chromium', 'browser', 'desktop', 'apps']
+    - role: airtonix.apps/ms-teams
+      tags: ['chat', 'desktop', 'apps']
+    - role: airtonix.apps/slack
+      tags: ['chat', 'desktop', 'apps']
+    - role: airtonix.apps/steam
+      tags: ['steam', 'games', 'desktop', 'apps']
+    - role: airtonix.apps/mailspring
+      tags: ['mailspring', 'email', 'desktop', 'apps']
+
+  tasks:
+    - name: install base packages
+      package:
+        state: present
+        name:
+          - yamllint
+          - google-roboto-slab-fonts
+          - htop
+          - jq
+          - powerline-fonts
+          - youtube-dl

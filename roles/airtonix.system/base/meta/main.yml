@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Zenobius Jiricek
+  role_name: base
+  license: BSD-3-Clause
+  description: base stuff
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Debian
+      versions:
+        - 10
+    - name: Fedora
+      versions:
+        - all
+    - name: Macosx
+      versions:
+        - all
+
+  galaxy_tags:
+    - linux

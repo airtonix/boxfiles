@@ -1,0 +1,47 @@
+---
+- name: Home Automation Server Configuration
+  hosts: all
+  become: true
+
+  vars:
+    os_platform: linux
+    ansible_python_interpreter: /usr/bin/python3
+
+  roles:
+    - role: airtonix.system/base
+    - role: airtonix.system/python
+    - role: airtonix.system/docker
+      variables:
+        docker_storage_root: /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/docker
+    - role: airtonix.server/adguard
+      tags: [stacks, core, dns, adguard]
+    - role: airtonix.server/storage
+      tags: [stacks, core, storage, samba]
+    - role: airtonix.server/homer
+      tags: [stacks, core, homer, dashboard]
+    - role: airtonix.server/traefik
+      tags: [stacks, core, traefik]
+    - role: airtonix.server/portainer
+      tags: [stacks, core, portainer]
+    - role: airtonix.server/nodered
+      tags: [stacks, automation, nodered]
+    - role: airtonix.server/homeassistant
+      tags: [stacks, automation, homeassistant]
+    - role: airtonix.server/debrid
+      tags: [stacks, media, debrid]
+    - role: airtonix.server/metube
+      tags: [stacks, media, metube]
+    - role: airtonix.server/duplicati
+      tags: [stacks, backup, duplicati]
+    - role: airtonix.server/codeserver
+      tags: [stacks, codeserver]
+    - role: airtonix.server/calibre
+      tags: [stacks, calibre, books]
+    - role: airtonix.server/mylar
+      tags: [stacks, downloading, mylar, books, comics]
+    - role: airtonix.server/lazylibrarian
+      tags: [stacks, downloading, books, lazylibrarian]
+    - role: airtonix.server/readarr
+      tags: [stacks, downloading, books, readarr]
+    - role: airtonix.server/jackett
+      tags: [stacks, downloading, jackett]

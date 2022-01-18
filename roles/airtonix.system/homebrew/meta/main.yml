@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Zenobius Jiricek
+  role_name: homebrew
+  description: Installs homebrew
+  min_ansible_version: 2.9
+  license: BSD-3-Clause
+  platforms:
+    - name: Macosx
+      versions:
+        - all
+
+  galaxy_tags:
+    - macosx

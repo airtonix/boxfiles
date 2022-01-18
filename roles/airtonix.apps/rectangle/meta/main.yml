@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  role_name: rectangle
+  description: installs a window snapping tool for macosx
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Macosx
+      versions:
+        - all
+
+  galaxy_tags:
+    - fedora
+    - browser
+
+  dependencies:
+    - alzadude.firefox

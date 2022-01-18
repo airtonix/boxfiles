@@ -1,0 +1,11 @@
+---
+- name: OSx Workstation configuration
+  hosts: all
+
+  roles:
+    - role: airtonix.system/base
+    - role: airtonix.system/homebrew
+    - role: airtonix.apps/git
+    - role: airtonix.apps/zsh
+    - role: airtonix.apps/ms-vscode
+    - role: airtonix.apps/rectangle

@@ -1,0 +1,5 @@
+---
+- name: install rectangle app
+  homebrew:
+    name: rectangle
+    state: latest

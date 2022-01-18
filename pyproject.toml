@@ -5,13 +5,31 @@ description = ""
 authors = ["Zenobius Jiricek <airtonix@users.noreply.github.com>"]
 
 [tool.poe.tasks]
-provision-omv = """
+provision-server = """
 ansible-playbook
     --verbose
     --ask-become-pass
     --ask-vault-pass
     --inventory-file=./inventory/home-server.yaml
     ./playbooks/server-home-automation.yml
+"""
+provision = """
+ansible-playbook
+    --verbose
+"""
+provision-work = """
+ansible-playbook
+    --verbose
+    --ask-vault-pass
+    --inventory-file=./inventory/keech-laptop.yaml
+    ./playbooks/workstation-darwin.yml
+"""
+vaults = """
+ansible-playbook
+    --verbose
+    --ask-vault-pass
+    --inventory-file=./inventory/keech-laptop.yaml
+    ./playbooks/workstation-darwin.yml
 """
 
 [tool.poetry.dependencies]

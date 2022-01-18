@@ -1,3 +1,0 @@
----
-- name: 'Configure SSH'
-  include_tasks: 'setup-ssh.yml'

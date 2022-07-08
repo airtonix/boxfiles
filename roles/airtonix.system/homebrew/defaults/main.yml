@@ -1,0 +1,4 @@
+---
+homebrew_install_path: "{{ ansible_env.HOME }}/.homebrew"
+homebrew_bin_path: "{{ ansible_env.HOME }}/.bin"
+homebrew_repo: https://github.com/Homebrew/brew

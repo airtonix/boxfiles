@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  role_name: caffeine
+  description: installs caffeine, the sleep disabler
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Macosx
+      versions:
+        - all
+
+  galaxy_tags:
+    - macosx
+    - system

@@ -16,20 +16,7 @@ ansible-playbook
 provision = """
 ansible-playbook
     --verbose
-"""
-provision-work = """
-ansible-playbook
-    --verbose
     --ask-vault-pass
-    --inventory-file=./inventory/keech-laptop.yaml
-    ./playbooks/workstation-darwin.yml
-"""
-vaults = """
-ansible-playbook
-    --verbose
-    --ask-vault-pass
-    --inventory-file=./inventory/keech-laptop.yaml
-    ./playbooks/workstation-darwin.yml
 """
 
 [tool.poetry.dependencies]

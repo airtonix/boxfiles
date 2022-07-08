@@ -1,0 +1,30 @@
+---
+
+- name: Ensure Projects directory directory exists.
+  file:
+    path: "{{ ansible_env.HOME }}/Projects/Mine/"
+    state: directory
+    mode: 0775
+
+- name: clone/update dotfiles
+  become: true
+  become_user: "{{ ansible_env.USER }}"
+  git:
+    repo: git@github.com:airtonix/dotfiles.git
+    dest: "{{ ansible_env.HOME }}/Projects/Mine/Dotfiles"
+    accept_hostkey: true
+    force: true
+    version: HEAD
+
+- name: push zshenv, zshrc and zprofile
+  file:
+    state: link
+    src: "{{ ansible_env.HOME }}/Projects/Mine/Dotfiles/zsh/.{{ item }}"
+    path: "{{ ansible_env.HOME }}/.{{ item }}"
+    mode: 0400
+    setype: config_home_t
+    seuser: system_u
+  loop:
+    - zshrc
+    - zshenv
+    - zprofile

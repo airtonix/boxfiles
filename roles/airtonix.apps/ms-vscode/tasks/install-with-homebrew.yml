@@ -1,0 +1,4 @@
+---
+- name: install visual studio code
+  homebrew:
+    name: visual-studio-code

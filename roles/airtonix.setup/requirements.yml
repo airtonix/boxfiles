@@ -9,12 +9,10 @@ roles:
   - name: nickpack.android_sdk
   - name: marverix.chromium
     version: v1.0.0
+  - name: elliotweiser.osx-command-line-tools
 
 collections:
   - community.general
   - community.docker
-  - community.general.github_release
-
-dependencies:
-  - linux-system-roles.cockpit
+  - community.general
   - geerlingguy.mac

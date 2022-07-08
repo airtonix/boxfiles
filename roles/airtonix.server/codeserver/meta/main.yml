@@ -18,6 +18,7 @@ galaxy_info:
     - linux
 
 dependencies:
-  - role: airtonix.provisioning/apps/docker
+  - role: airtonix.system/docker
     vars:
       language: python
+  - role: airtonix.systemd/dockercompose

@@ -8,10 +8,7 @@
 - name: push git user config files
   copy:
     src: "{{ item }}"
-    dest: "/home/{{ ansible_user }}/.{{ item }}"
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
     mode: 0400
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    seuser: system_u
   loop:
-    - gitconfig
+    - .gitconfig

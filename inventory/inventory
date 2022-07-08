@@ -1,9 +1,6 @@
 # vim:set filetype=yaml:
 ---
 all:
-  vars:
-    git_src: "git@gitlab.com:airtonix/boxfiles.git"
-    dotfiles_src: "git@gitlab.com:airtonix/dotfiles.git"
   hosts:
 
 workstation:

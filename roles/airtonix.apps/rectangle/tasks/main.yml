@@ -1,7 +1,5 @@
 ---
-- set_fact:
-    platform_manifest_file: "{{role_path}}/tasks/install-with-{{ansible_distribution}}.yml"
-
 - name: 'install with ({{ ansible_distribution }})'
-  include_tasks: platform_manifest_file
-  when: platform_manifest_file is file
+  include: "{{ item }}"
+  with_first_found:
+    - "{{ role_path }}/tasks/install-on-{{ ansible_distribution | lower }}.yml"

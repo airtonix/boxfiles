@@ -1,0 +1,5 @@
+---
+- name: install synergy
+  homebrew:
+    name: synergy
+    state: latest

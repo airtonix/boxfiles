@@ -1,0 +1,26 @@
+---
+firefox:
+  addons:
+    - url: https://addons.mozilla.org/en-US/firefox/addon/adwaita
+    - url: https://addons.mozilla.org/en-US/firefox/addon/syncmarx
+    - url: https://addons.mozilla.org/en-US/firefox/addon/adblock-plus
+    - url: https://addons.mozilla.org/en-US/firefox/addon/gnome-theme-tweak
+      prefs:
+        - name: extensions.gnome-theme-tweak.relief-buttons
+          value: true
+        - name: extensions.gnome-theme-tweak.tab-max-width
+          value: 4
+    - url: https://addons.mozilla.org/en-US/firefox/addon/hide-tab-bar-with-one-tab
+  prefs:
+    - name: browser.tabs.animate
+      value: false
+  styles:
+    - https://userstyles.org/styles/96733/headerbar-style-for-gnome-3-16
+    - https://userstyles.org/styles/115022/gnome-styled-menu-list-view
+  ui_customisation:
+    add:
+      - placement: nav-bar
+        item: new-tab-button
+    remove:
+      - placement: TabsToolbar
+        item: new-tab-button

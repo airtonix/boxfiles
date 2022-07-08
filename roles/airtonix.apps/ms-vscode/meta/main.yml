@@ -16,6 +16,3 @@ galaxy_info:
     - name: Fedora
       versions:
         - all
-
-  dependencies:
-    - role: gantsign.visual-studio-code

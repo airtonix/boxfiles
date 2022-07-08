@@ -3,5 +3,3 @@
   include: "{{ item }}"
   with_first_found:
     - "{{ role_path }}/tasks/install-with-{{ ansible_pkg_mgr | lower }}.yml"
-- name: download vault
-  include: "{{ role_path }}/tasks/download-personal-vault.yml"

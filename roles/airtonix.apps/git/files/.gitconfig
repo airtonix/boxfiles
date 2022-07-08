@@ -1,0 +1,15 @@
+[user]
+name = Zenobius Jiricek
+email = airtonix@users.noreply.github.com
+
+[core]
+editor = code --wait
+
+[rerere]
+enabled = true
+
+[includeIf "gitdir:Projects/Work/Reckon/Bitbucket"]
+path = ~/Projects/Work/Reckon/Bitbucket/.gitconfig
+
+[includeIf "gitdir:Projects/Work/Reckon/Github/"]
+path = ~/Projects/Work/Reckon/Github/.gitconfig

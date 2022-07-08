@@ -9,3 +9,4 @@
     - role: airtonix.apps/zsh
     - role: airtonix.apps/ms-vscode
     - role: airtonix.apps/rectangle
+    - role: airtonix.apps/caffeine

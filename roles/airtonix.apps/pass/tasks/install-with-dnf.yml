@@ -1,0 +1,47 @@
+---
+- name: install pass and other extensions
+  package:
+    state: present
+    name:
+      - pass
+      - passmenu
+      - pass-otp
+      - pass-pwned
+
+- name: clone/update passwords
+  become: true
+  become_user: "{{ target_user }}"
+  git:
+    repo: git@github.com:airtonix/vaultfiles.git
+    dest: "{{ user_dir_home }}/.password-store"
+    accept_hostkey: yes
+    force: yes
+    version: HEAD
+
+- name: harden ~/.password-store permissions
+  file:
+    state: directory
+    path: "{{ user_dir_home }}/.password-store/"
+    mode: 0700
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+    setype: user_home_t
+    seuser: system_u
+
+# - name: get passff-host
+#   get_url:
+#     url: https://github.com/passff/passff-host/releases/latest/download/install_host_app.sh
+#     dest: "{{ user_dir_applications }}"
+#     mode: "u+rwx"
+#     owner: "{{ target_user }}"
+#     group: "{{ target_user }}"
+#     setype: system_conf_t
+#     seuser: system_u
+
+# - name: Install passff-host
+#   command:
+#     argv:
+#       - BROWSER=firefox
+#       - "{{ user_dir_applications }}/install_host_app.sh"
+#       - firefox
+#     creates: "{{ user_dir_home }}/.mozilla/native-messaging-hosts"

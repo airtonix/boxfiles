@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  role_name: Synergy
+  description: installs synergy the mouse and keyboard sharing kvm
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Macosx
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - macosx
+    - system

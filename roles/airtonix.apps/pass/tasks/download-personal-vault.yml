@@ -1,0 +1,20 @@
+---
+- name: clone/update passwords
+  become: true
+  become_user: "{{ target_user }}"
+  git:
+    repo: git@github.com:airtonix/vaultfiles.git
+    dest: "{{ user_dir_home }}/.password-store"
+    accept_hostkey: yes
+    force: yes
+    version: HEAD
+
+- name: harden ~/.password-store permissions
+  file:
+    state: directory
+    path: "{{ user_dir_home }}/.password-store/"
+    mode: 0700
+    owner: "{{ target_user }}"
+    group: "{{ target_group }}"
+    setype: user_home_t
+    seuser: system_u

@@ -1,0 +1,5 @@
+---
+- name: install caffeine app
+  homebrew:
+    name: caffeine
+    state: latest

@@ -17,6 +17,10 @@ services:
       traefik.http.routers.calibreweb-ui-router.service: calibreweb-ui-service
       traefik.http.routers.calibreweb-ui-router.rule: Host(`books.home.lan`)
       traefik.http.services.calibreweb-ui-service.loadbalancer.server.port: 8083
+      plugsy.name: "Calibre"
+      plugsy.category: "Media"
+      plugsy.icon: "@styled-icons/material-twotone/MenuBook"
+
 
   calibre:
     image: lscr.io/linuxserver/calibre
@@ -38,6 +42,9 @@ services:
       traefik.http.routers.calibre-desktop-router.service: calibre-desktop-service
       traefik.http.routers.calibre-desktop-router.rule: Host(`calibredesktop.home.lan`)
       traefik.http.services.calibre-desktop-service.loadbalancer.server.port: 8080
+      plugsy.name: "CalibreServer"
+      plugsy.parent: "Calibre"
+      plugsy.icon: "@styled-icons/feather/Server"
 
 volumes:
   calibre_service_config_volume:

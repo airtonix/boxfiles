@@ -17,12 +17,14 @@
       tags: [stacks, core, dns, adguard]
     - role: airtonix.server/storage
       tags: [stacks, core, storage, samba]
-    - role: airtonix.server/homer
-      tags: [stacks, core, homer, dashboard]
+    - role: airtonix.server/seafile
+      tags: [stacks, core, storage, seafile]
+    - role: airtonix.server/plugsy
+      tags: [stacks, core, plugsy, dashboard]
+    - role: airtonix.server/tiddlywiki
+      tags: [stacks, core, tiddlywiki, notes]
     - role: airtonix.server/traefik
       tags: [stacks, core, traefik]
-    - role: airtonix.server/portainer
-      tags: [stacks, core, portainer]
     - role: airtonix.server/nodered
       tags: [stacks, automation, nodered]
     - role: airtonix.server/homeassistant

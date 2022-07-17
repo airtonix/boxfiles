@@ -15,6 +15,9 @@ services:
       traefik.http.routers.piehole-ui-router.service: adguard-ui-service
       traefik.http.routers.adguard-ui-router.rule: Host(`adguard.home.lan`)
       traefik.http.services.adguard-ui-service.loadbalancer.server.port: 80
+      plugsy.name: "Adguard"
+      plugsy.category: "Network"
+      plugsy.icon: "@styled-icons/material-twotone/Block"
     volumes:
       - adguard_service_work_volume:/opt/adguardhome/work
       - adguard_service_config_volume:/opt/adguardhome/conf

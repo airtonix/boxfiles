@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: codeserver
+  role_name: seafile
   license: BSD-3-Clause
   author: 'me'
   description: 'stuff'

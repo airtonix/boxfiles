@@ -14,6 +14,10 @@ services:
       traefik.http.routers.duplicati-ui-router.service: duplicati-ui-service
       traefik.http.routers.duplicati-ui-router.rule: Host(`backup.home.lan`)
       traefik.http.services.duplicati-ui-service.loadbalancer.server.port: 8200
+      plugsy.name: "Duplicati"
+      plugsy.category: "Services"
+      plugsy.icon: "@styled-icons/material-twotone/CloudUpload"
+
     volumes:
       - duplicati_service_data_volume:/config
       - duplicati_service_data_volume:/sources/services/dupicati

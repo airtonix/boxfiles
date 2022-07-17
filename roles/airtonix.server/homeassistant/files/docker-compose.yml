@@ -1,5 +1,11 @@
 version: "3.8"
 
+networks:
+  default:
+    external:
+      name: traefik_proxy
+
+
 services:
   homeassistant:
     image: lscr.io/linuxserver/homeassistant:latest
@@ -25,6 +31,9 @@ services:
       # traefik.http.routers.home-assistant-router.middlewares: "home-assistant-redirect-middleware"
       # traefik.http.middlewares.home-assistant-redirect-middleware.redirectregex.regex: "^http?:\\/\\/([^\\/]+)\\/?$$"
       # traefik.http.middlewares.home-assistant-redirect-middleware.redirectregex.replacement: "http://$$1/xyz"
+      plugsy.name: "Home Assistant"
+      plugsy.category: "Automation"
+      plugsy.icon: "@styled-icons/material-twotone/AutoFixHigh"
 
   # homeassistant-mosquitto:
   #   image: eclipse-mosquitto:2.0.12
@@ -44,6 +53,9 @@ services:
   #     traefik.http.routers.home-assistant-mqtt-router.rule: Host(`assistant-mqtt.home.lan`)
   #     traefik.http.services.home-assistant-mqtt-service.loadbalancer.server.port: 1883
   #     traefik.http.routers.home-assistant-mqtt-router.service: home-assistant-mqtt-service
+  #     plugsy.name: "Home Assistant"
+  #     plugsy.category: "Automation"
+  #     plugsy.icon: "@styled-icons/simple-icons/Homeassistant"
 
   # homeassistant-zwavejs2mqtt:
     # image: "zwavejs/zwavejs2mqtt@sha256:b1215c9376c589957d318686040b7b51f372ea13599b42ae05cff1a8d4538f5a"
@@ -67,8 +79,6 @@ services:
     #   traefik.http.routers.home-assistant-zwave-ui-router.rule: Host(`assistant-zwave.home.lan`)
     #   traefik.http.routers.home-assistant-zwave-ui-router.service: home-assistant-zwave-ui-service
     #   traefik.http.services.home-assistant-zwave-ui-service.loadbalancer.server.port: 8091
-
-networks:
-  default:
-    external:
-      name: traefik_proxy
+    #   plugsy.name: "Home Assistant"
+    #   plugsy.category: "Automation"
+    #   plugsy.icon: "@styled-icons/simple-icons/Homeassistant"

@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  tiddlywiki:
+    image: m0wer/tiddlywiki:5.2.0
+    volumes:
+      - tiddlywiki_service_data_volume:/var/lib/tiddlywiki
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.tiddlywiki-ui-router.service: tiddlywiki-ui-service
+      traefik.http.routers.tiddlywiki-ui-router.rule: Host(`wiki.home.lan`)
+      traefik.http.services.tiddlywiki-ui-service.loadbalancer.server.port: 8080
+      plugsy.name: "Wiki"
+      plugsy.category: "Knowledge"
+      plugsy.icon: "@styled-icons/material-twotone/SpeakerNotes"
+
+volumes:
+  tiddlywiki_service_data_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

@@ -17,6 +17,9 @@ services:
       traefik.http.routers.mylar-ui-router.service: mylar-ui-service
       traefik.http.routers.mylar-ui-router.rule: Host(`mylar.home.lan`)
       traefik.http.services.mylar-ui-service.loadbalancer.server.port: 8090
+      plugsy.name: "Mylar"
+      plugsy.category: "Media"
+      plugsy.icon: "@styled-icons/material-twotone/MenuBook"
 
 volumes:
   mylar_service_config_volume:

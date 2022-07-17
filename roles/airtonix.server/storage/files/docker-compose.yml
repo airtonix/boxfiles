@@ -8,12 +8,15 @@ services:
     stdin_open: true
     tty: true
     cap_add:
+     # https://github.com/ServerContainers/samba/issues/50
      - CAP_NET_ADMIN
     read_only: false
-
+    labels:
+      plugsy.name: "Samba"
+      plugsy.category: "Storage"
+      plugsy.icon: "@styled-icons/material-twotone/Storage"
     environment:
       TZ: Australia/Adelaide
-
       MODEL: TimeCapsule
       AVAHI_NAME: samba.home.lan
       SAMBA_CONF_LOG_LEVEL: 3
@@ -35,10 +38,11 @@ services:
       SAMBA_GLOBAL_CONFIG_name_SPACE_resolve_SPACE_order: "bcast host lmhosts wins"
 
       GROUP_family: 1500
+      GROUP_admin: 1
 
       ACCOUNT_zenobius: password
       UID_zenobius: 1000
-      GROUPS_zenobius: family
+      GROUPS_zenobius: family,admin
 
       SAMBA_VOLUME_CONFIG_shared_home: >
         [Home];

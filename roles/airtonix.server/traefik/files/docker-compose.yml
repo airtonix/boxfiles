@@ -10,6 +10,10 @@ services:
       traefik.http.routers.traefik-ui-router.service: traefik-ui-service
       traefik.http.routers.traefik-ui-router.rule: Host(`traefik.home.lan`)
       traefik.http.services.traefik-ui-service.loadbalancer.server.port: 8080
+      plugsy.name: "Traefik"
+      plugsy.category: "Services"
+      plugsy.icon: "@styled-icons/material-twotone/Router"
+
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"
     command:

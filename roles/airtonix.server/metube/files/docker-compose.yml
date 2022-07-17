@@ -12,6 +12,9 @@ services:
       traefik.http.routers.metube-router.service: metube-service
       traefik.http.routers.metube-router.rule: Host(`metube.home.lan`)
       traefik.http.services.metube-service.loadbalancer.server.port: 8081
+      plugsy.name: "MeTube"
+      plugsy.category: "Media"
+      plugsy.icon: "@styled-icons/material-twotone/CloudDownload"
 
 volumes:
   storage_downloads:

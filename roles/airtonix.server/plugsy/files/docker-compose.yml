@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  plugsy:
+    restart: unless-stopped
+    image: plugsy/core
+    volumes:
+      - ./config.json:/config.json
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      traefik.http.routers.piehole-ui-router.service: plugsy-ui-service
+      traefik.http.routers.plugsy-ui-router.rule: Host(`the.home.lan`)
+      traefik.http.services.plugsy-ui-service.loadbalancer.server.port: 3000
+      plugsy.name: "Plugsy"
+      plugsy.category: "Services"
+      plugsy.icon: "@styled-icons/material-twotone/Dashboard"
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

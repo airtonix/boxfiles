@@ -17,6 +17,9 @@ services:
       traefik.http.routers.librarian-ui-router.service: librarian-ui-service
       traefik.http.routers.librarian-ui-router.rule: Host(`librarian.home.lan`)
       traefik.http.services.librarian-ui-service.loadbalancer.server.port: 5299
+      plugsy.name: "Lazylibrarian"
+      plugsy.category: "Media"
+      plugsy.icon: "@styled-icons/material-twotone/LocalLibrary"
 
 volumes:
   librarian_service_config_volume:

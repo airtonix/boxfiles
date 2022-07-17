@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   jackett:
-    image: lscr.io/linuxserver/jackett
+    image: lscr.io/linuxserver/jackett:0.20.1299
     dns:
       - "192.168.8.149"
     dns_search: home.lan
@@ -19,6 +19,9 @@ services:
       traefik.http.routers.jackett-ui-router.service: jackett-ui-service
       traefik.http.routers.jackett-ui-router.rule: Host(`jackett.home.lan`)
       traefik.http.services.jackett-ui-service.loadbalancer.server.port: 9117
+      plugsy.name: "Jackett"
+      plugsy.category: "Media"
+      plugsy.icon: "@styled-icons/material-twotone/QueryStats"
 
 volumes:
   jackett_service_config_volume:

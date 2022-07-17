@@ -1,0 +1,73 @@
+{
+    "$schema": "https://github.com/plugsy/core/releases/download/v7.0.0/core-config-schema.json",
+    "theme": {
+      "colors": {
+        "GREEN": "#50fa7b",
+        "RED": "#ff5555",
+        "YELLOW": "#f1fa8c",
+        "GREY": "#6272a4"
+      },
+      "components": {
+        "Category": {
+          "Title": {
+            "color": "#f8f8f2"
+          }
+        },
+        "Item": {
+          "Small": {
+            "color": "#bd93f9"
+          },
+          "Text": {
+            "color": "#f8f8f2"
+          },
+          "Container": {
+            "background": "#44475a",
+            "boxShadow": "none"
+          },
+          "PopoverContainer": {
+            "background": "#44475a",
+            "boxShadow": "none"
+          },
+          "Separator": {
+            "backgroundColor": "#282a36"
+          },
+          "Muted": {
+            "color": "#6272a4"
+          },
+          "Icon": {
+            "color": "#f8f8f2"
+          },
+          "ExternalLinkContainer": {
+            "color": "#f8f8f2"
+          },
+          "ExternalLinkContainerColumn": {
+            "color": "#f8f8f2"
+          }
+        },
+        "StatusBox": {
+          "Container": {
+            "background": "#44475a",
+            "boxShadow": "none"
+          },
+          "Text": {
+            "color": "#f8f8f2"
+          },
+          "Title": {
+            "color": "#f8f8f2"
+          }
+        },
+        "ConnectionStatus": {
+          "ConnectionStatusId": {
+            "color": "#f8f8f2"
+          }
+        }
+      },
+      "pages": {
+        "Home": {
+          "AppContainer": {
+            "background": "#282a36"
+          }
+        }
+      }
+    }
+  }

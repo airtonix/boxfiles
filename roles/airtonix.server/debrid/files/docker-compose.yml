@@ -13,6 +13,9 @@ services:
       traefik.http.routers.debrid-ui-router.service: debrid-ui-service
       traefik.http.routers.debrid-ui-router.rule: Host(`debrid.home.lan`)
       traefik.http.services.debrid-ui-service.loadbalancer.server.port: 6500
+      plugsy.name: "Debrid"
+      plugsy.category: "Services"
+      plugsy.icon: "@styled-icons/material-twotone/CloudDownload"
 
 volumes:
   debrid_service_data_volume:

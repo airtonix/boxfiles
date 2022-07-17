@@ -19,6 +19,9 @@ services:
       traefik.http.routers.readarr-ui-router.service: readarr-ui-service
       traefik.http.routers.readarr-ui-router.rule: Host(`readarr.home.lan`)
       traefik.http.services.readarr-ui-service.loadbalancer.server.port: 8787
+      plugsy.name: "Readarr"
+      plugsy.category: "Media"
+      plugsy.icon: "@styled-icons/material-twotone/MenuBook"
 
 volumes:
   readarr_service_config_volume:

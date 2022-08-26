@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   debrid:
-    image: rogerfar/rdtclient:1.7.8
+    image: rogerfar/rdtclient@sha256:4a665a70e41dc742a1ad418e6d8ecec7f83018775f00c431b20b73f3da5f346f
     restart: unless-stopped
     ports:
       - '6500:6500'
@@ -16,6 +16,7 @@ services:
       plugsy.name: "Debrid"
       plugsy.category: "Services"
       plugsy.icon: "@styled-icons/material-twotone/CloudDownload"
+      plugsy.link: http://debrid.home.lan
 
 volumes:
   debrid_service_data_volume:

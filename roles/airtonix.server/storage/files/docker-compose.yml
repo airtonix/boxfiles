@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   store:
-    image: servercontainers/samba
+    image: servercontainers/samba@sha256:a73321e3300f021b81d887f4062364019d54f1c6fd3d7550b11286f62dff987b
     restart: unless-stopped
     network_mode: host
     stdin_open: true

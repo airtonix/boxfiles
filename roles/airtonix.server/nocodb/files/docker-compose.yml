@@ -1,0 +1,24 @@
+version: "3.3"
+
+services:
+  nocodb:
+    image: nocodb/nocodb:0.92.4
+    volumes:
+      - nocodb_service_data_volume:/usr/app/data
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.nocodb-ui-router.service: nocodb-ui-service
+      traefik.http.routers.nocodb-ui-router.rule: Host(`db.home.lan`)
+      traefik.http.services.nocodb-ui-service.loadbalancer.server.port: 8080
+      plugsy.name: "NocoDB"
+      plugsy.category: "Knowledge"
+      plugsy.icon: "@styled-icons/material-twotone/SpeakerNotes"
+      plugsy.link: http://db.home.lan
+
+volumes:
+  nocodb_service_data_volume:
+
+networks:
+  default:
+    external:
+      name: traefik_proxy

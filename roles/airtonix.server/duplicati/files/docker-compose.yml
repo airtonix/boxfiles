@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   duplicati:
-    image: lscr.io/linuxserver/duplicati
+    image: ghcr.io/linuxserver/duplicati@sha256:c964a62e625cf70b37afe67b3076be1c5453582000ed4acb2572cdeb62627d59
     restart: unless-stopped
     expose:
       - 8200
@@ -17,6 +17,7 @@ services:
       plugsy.name: "Duplicati"
       plugsy.category: "Services"
       plugsy.icon: "@styled-icons/material-twotone/CloudUpload"
+      plugsy.link: http://backup.home.lan
 
     volumes:
       - duplicati_service_data_volume:/config

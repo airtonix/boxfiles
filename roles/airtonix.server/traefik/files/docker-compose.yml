@@ -13,6 +13,7 @@ services:
       plugsy.name: "Traefik"
       plugsy.category: "Services"
       plugsy.icon: "@styled-icons/material-twotone/Router"
+      plugsy.link: http://traefik.home.lan
 
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"

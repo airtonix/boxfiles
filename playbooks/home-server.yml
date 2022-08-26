@@ -23,6 +23,8 @@
       tags: [stacks, core, plugsy, dashboard]
     - role: airtonix.server/tiddlywiki
       tags: [stacks, core, tiddlywiki, notes]
+    - role: airtonix.server/nocodb
+      tags: [stacks, core, nocodb, db]
     - role: airtonix.server/traefik
       tags: [stacks, core, traefik]
     - role: airtonix.server/nodered

@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   calibre-web:
-    image: lscr.io/linuxserver/calibre-web
+    image: ghcr.io/linuxserver/calibre-web@sha256:f835a332cbf22d478bef41f1dd698cc737f2f4458c8df688ed1194c40428b274
     environment:
       - PUID=1000
       - PGID=100
@@ -20,10 +20,11 @@ services:
       plugsy.name: "Calibre"
       plugsy.category: "Media"
       plugsy.icon: "@styled-icons/material-twotone/MenuBook"
+      plugsy.link: http://books.home.lan
 
 
   calibre:
-    image: lscr.io/linuxserver/calibre
+    image: ghcr.io/linuxserver/calibre@sha256:641408f3eed99f8acf4c2e448591c67881b26f4123decb526214adc03a5c635e
     environment:
       - PUID=1000
       - PGID=100
@@ -43,7 +44,7 @@ services:
       traefik.http.routers.calibre-desktop-router.rule: Host(`calibredesktop.home.lan`)
       traefik.http.services.calibre-desktop-service.loadbalancer.server.port: 8080
       plugsy.name: "CalibreServer"
-      plugsy.parent: "Calibre"
+      plugsy.parents: "Calibre"
       plugsy.icon: "@styled-icons/feather/Server"
 
 volumes:

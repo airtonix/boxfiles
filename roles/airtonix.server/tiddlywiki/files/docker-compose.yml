@@ -13,6 +13,7 @@ services:
       plugsy.name: "Wiki"
       plugsy.category: "Knowledge"
       plugsy.icon: "@styled-icons/material-twotone/SpeakerNotes"
+      plugsy.link: http://wiki.home.lan
 
 volumes:
   tiddlywiki_service_data_volume:

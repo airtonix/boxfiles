@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   codeserver:
-    image: lscr.io/linuxserver/code-server
+    image: ghcr.io/linuxserver/code-server@sha256:fd64244ce0fe8289da3778713384e68f011487113bf1852f1de5b120fba34b26
     restart: unless-stopped
     expose:
       - 8443
@@ -21,6 +21,7 @@ services:
       plugsy.name: "VSCode"
       plugsy.category: "Storage"
       plugsy.icon: "@styled-icons/material-twotone/Code"
+      plugsy.link: http://codeserver.home.lan
     volumes:
       - codeserver_service_data_volume:/config
       - debrid_data:/home/coder/projects/debrid
@@ -28,7 +29,6 @@ services:
       - jellyfin_data:/home/coder/projects/jellyfin
       - /srv/dev-disk-by-uuid-45a8637d-14c5-448d-bfba-7c722c1b84ea/services/HomeAsssistant:/home/coder/projects/homeassistant
       - /var/run/docker.sock:/var/run/docker.sock:rw
-
 
 volumes:
   codeserver_service_data_volume:

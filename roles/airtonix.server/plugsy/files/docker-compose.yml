@@ -3,7 +3,7 @@ version: "3.3"
 services:
   plugsy:
     restart: unless-stopped
-    image: plugsy/core
+    image: plugsy/core:7.0.0
     volumes:
       - ./config.json:/config.json
       - /var/run/docker.sock:/var/run/docker.sock
@@ -14,6 +14,9 @@ services:
       plugsy.name: "Plugsy"
       plugsy.category: "Services"
       plugsy.icon: "@styled-icons/material-twotone/Dashboard"
+      plugsy.link: http://the.home.lan
+    extra_hosts:
+      - the.home.lan:host-gateway
 
 networks:
   default:

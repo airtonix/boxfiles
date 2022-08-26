@@ -22,6 +22,7 @@ services:
       plugsy.name: "Readarr"
       plugsy.category: "Media"
       plugsy.icon: "@styled-icons/material-twotone/MenuBook"
+      plugsy.link: http://readarr.home.lan
 
 volumes:
   readarr_service_config_volume:

@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   mylar:
-    image: lscr.io/linuxserver/mylar3
+    image: ghcr.io/linuxserver/mylar3:version-v0.6.8
     environment:
       - PUID=1000
       - PGID=100
@@ -20,6 +20,7 @@ services:
       plugsy.name: "Mylar"
       plugsy.category: "Media"
       plugsy.icon: "@styled-icons/material-twotone/MenuBook"
+      plugsy.link: http://mylar.home.lan
 
 volumes:
   mylar_service_config_volume:

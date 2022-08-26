@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   librarian:
-    image: lscr.io/linuxserver/lazylibrarian
+    image: ghcr.io/linuxserver/lazylibrarian:version-52be663d
     environment:
       - PUID=1000
       - PGID=100
@@ -20,6 +20,7 @@ services:
       plugsy.name: "Lazylibrarian"
       plugsy.category: "Media"
       plugsy.icon: "@styled-icons/material-twotone/LocalLibrary"
+      plugsy.link: http://librarian.home.lan
 
 volumes:
   librarian_service_config_volume:

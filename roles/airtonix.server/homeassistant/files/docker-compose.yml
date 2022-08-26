@@ -8,7 +8,7 @@ networks:
 
 services:
   homeassistant:
-    image: lscr.io/linuxserver/homeassistant:latest
+    image: ghcr.io/linuxserver/homeassistant@sha256:810b583c181b91d5210bd6c9c3608ed6c788fd12b312baad7b2cf6fb57d7154c
     network_mode: host
     environment:
       PUID: 1000
@@ -34,7 +34,7 @@ services:
       plugsy.name: "Home Assistant"
       plugsy.category: "Automation"
       plugsy.icon: "@styled-icons/material-twotone/AutoFixHigh"
-
+      plugsy.link: http://assistant.home.lan
   # homeassistant-mosquitto:
   #   image: eclipse-mosquitto:2.0.12
   #   expose:
